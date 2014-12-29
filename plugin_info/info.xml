@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>ipx800</id>
+    <name>Ipx800 V3</name>
+    <description>Plugin pour gerer les cartes ipx800 V3 de GCE</description>
+    <icon>fa fa-sitemap</icon>
+    <licence>AGPL</licence>
+    <author>Thomas Guenneguez</author>
+    <installation>Nécessite firmware 3.05.42 minimum</installation>
+    <require>1.124.0</require>
+    <version>1.24</version>
+    <category>automation protocol</category>
+</info>
+
