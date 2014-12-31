@@ -7,12 +7,12 @@ $("#table_cmd_ipx800_analogique").delegate(".listEquipementInfo", 'click', funct
 });
 
 $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function () {
-	switch($(this).find('option').filter(":selected").text()) {
-		case 'Sonde LM35Z':
+	switch($(this).find('option').filter(":selected").value()) {
+		case 'LM35Z':
 			formule = '#brut# * 0.323';
 			unite = '°C';
 			break;
-		case 'Sonde T4012':
+		case 'T4012':
 			formule = '#brut# * 0.323 - 50';
 			unite = '°C';
 			break;
@@ -20,19 +20,19 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			formule = '#brut# * 0.00323';
 			unite = 'V';
 			break;
-		case 'SHT-X3:Light-LS100':
+		case 'SHT-X3L':
 			formule = '#brut# * 0.09775';
 			unite = '% Lum';
 			break;
-		case 'SHT-X3:Temp-LS100':
+		case 'SHT-X3T':
 			formule = '( #brut# * 0.00323 - 1.63 ) / 0.0326';
 			unite = '°C';
 			break;
-		case 'SHT-X3:RH-SH100':
+		case 'SHT-X3H':
 			formule = '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / 1.0546';
 			unite = '% RH';
 			break;
-		case 'TC 100':
+		case 'TC100':
 			formule = '( ( #brut# * 0.00323 ) - 0.25 ) / 0.028';
 			unite = '°C';
 			break;
@@ -40,13 +40,19 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			formule = '#brut# / 0.00323';
 			unite = 'A';
 			break;
-		case 'X400 CT20A':
+		case 'CT20A':
 			formule = '#brut# / 0.00646';
 			unite = 'A';
 			break;
-		case 'X200 pH Probe':
+		case 'Ph':
 			formule = '#brut#';
 			unite = 'Ph';
+			break;
+		case 'SHT-X3HC':
+			formule = '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / 1.0546 / ( 1.0546 - ( 0.00216 * #temp# ) )';
+			formule = '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / (1.0546 - (0.00216 * #temp#))';
+			unite = '% RH';
+			alert('Remplacer #temp# par la température réél.');
 			break;
 		default:
 			formule = '#brut#';
@@ -84,13 +90,17 @@ function addCmdToTable(_cmd) {
 			tr += '<a class="btn btn-default cursor listEquipementInfo" data-input="calcul" style="margin-top : 5px;"><i class="fa fa-list-alt "></i> {{Rechercher équipement}}</a>';
 			tr += '<select class="cmdAttr form-control tooltips input-sm choixFormule" style="margin-top : 5px;" title="{{Formule standard}}">';
 			tr += '<option value=""></option>';
-			tr += '<option value="Sonde LM35Z">Sonde LM35Z</option>';
-			tr += '<option value="Sonde T4012">Sonde T4012</option>';
+			tr += '<option value="LM35Z">Sonde LM35Z</option>';
+			tr += '<option value="T4012">Sonde T4012</option>';
 			tr += '<option value="Voltage">Voltage</option>';
 			tr += '<option value="SHT-X3L">SHT-X3:Light-LS100</option>';
 			tr += '<option value="SHT-X3T">SHT-X3:Temp-LS100</option>';
 			tr += '<option value="SHT-X3H">SHT-X3:RH-SH100</option>';
-			tr += '<option value="TC 100">TC 100</option>';
+			tr += '<option value="SHT-X3HC">SHT-X3:RH-SH100 compensé</option>';
+			tr += '<option value="TC100">TC 100</option>';
+			tr += '<option value="CT10A">X400 CT10A</option>';
+			tr += '<option value="CT20A">X400 CT20A</option>';
+			tr += '<option value="Ph">X200 pH Probe</option>';
 			tr += '</select>';
 		}
         tr += '</td>';
