@@ -53,6 +53,18 @@ sendVarToJS('eqType', 'ipx800');
 								echo '</ul>'."\n";
 							echo '</li>'."\n";
 							echo '<li>'."\n";
+								echo '<i class="fa fa-calculator cursor eqLogicAction" data-action="hide" data-eqLogic_id="compteur_' . $eqLogic->getId() . '"></i>'."\n";
+								echo '<a class="cursor eqLogicAction" data-action="hide" style="display: inline;" data-eqLogic_id="compteur_' . $eqLogic->getId() . '" data-eqLogic_type="ipx800">{{Compteur}}</a>'."\n";
+								echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="compteur_' . $eqLogic->getId() . '" style="display: none;">'."\n";
+									for ($compteurId = 0; $compteurId <= 7; $compteurId++) {
+										$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_C".$compteurId, 'ipx800_compteur');
+										if ( is_object($SubeqLogic) ) {
+											echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $SubeqLogic->getId() . '" data-eqLogic_type="ipx800_compteur"><a>' . $SubeqLogic->getName() . '</a></li>'."\n";
+										}
+									}
+								echo '</ul>'."\n";
+							echo '</li>'."\n";
+							echo '<li>'."\n";
 								echo '<i class="fa fa-sitemap cursor eqLogicAction" data-action="hide" data-eqLogic_id="extensionx800_' . $eqLogic->getId() . '"></i>'."\n";
 								echo '<a class="cursor eqLogicAction" data-action="hide" style="display: inline;" data-eqLogic_id="extensionx800_' . $eqLogic->getId() . '" data-eqLogic_type="ipx800">{{Extensions X800}}</a>'."\n";
 								echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="extensionx800_' . $eqLogic->getId() . '" style="display: none;">'."\n";
@@ -306,6 +318,7 @@ sendVarToJS('eqType', 'ipx800');
 	<?php include_file('desktop', 'ipx800_analogique', 'php', 'ipx800'); ?>
 	<?php include_file('desktop', 'ipx800_bouton', 'php', 'ipx800'); ?>
 	<?php include_file('desktop', 'ipx800_relai', 'php', 'ipx800'); ?>
+	<?php include_file('desktop', 'ipx800_compteur', 'php', 'ipx800'); ?>
 </div>
 
 <?php

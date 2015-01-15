@@ -22,6 +22,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 include_file('core', 'ipx800_analogique', 'class', 'ipx800');
 include_file('core', 'ipx800_relai', 'class', 'ipx800');
 include_file('core', 'ipx800_bouton', 'class', 'ipx800');
+include_file('core', 'ipx800_compteur', 'class', 'ipx800');
 
 class ipx800 extends eqLogic {
     /*     * *************************Attributs****************************** */
@@ -79,6 +80,19 @@ class ipx800 extends eqLogic {
 			$ipx800Cmd->setEventOnly(1);
 			$ipx800Cmd->save();		
 		}
+
+		$cmd = $this->getCmd(null, 'status');
+		if ( ! is_object($cmd) ) {
+			$cmd = new ecodeviceCmd();
+			$cmd->setName('Etat');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setType('info');
+			$cmd->setSubType('binary');
+			$cmd->setLogicalId('status');
+			$cmd->setIsVisible(1);
+			$cmd->setEventOnly(1);
+			$cmd->save();
+		}
         $all_on = $this->getCmd(null, 'all_on');
         if ( ! is_object($all_on) ) {
             $all_on = new ipx800Cmd();
@@ -128,6 +142,15 @@ class ipx800 extends eqLogic {
 				$eqLogic->save();
 			}
 		}
+		for ($compteurId = 0; $compteurId <= 7; $compteurId++) {
+			if ( ! is_object(self::byLogicalId($this->getId()."_C".$compteurId, 'ipx800_compteur')) ) {
+				log::add('ipx800','debug','Creation compteur : '.$this->getId().'_C'.$compteurId);
+				$eqLogic = new ipx800_compteur();
+				$eqLogic->setLogicalId($this->getId().'_C'.$compteurId);
+				$eqLogic->setName('Compteur ' . ($compteurId+1));
+				$eqLogic->save();
+			}
+		}
 	}
 
 	public function postUpdate()
@@ -158,6 +181,28 @@ class ipx800 extends eqLogic {
 				$eqLogic->setName('Bouton ' . ($compteurId+1));
 				$eqLogic->save();
 			}
+		}
+		for ($compteurId = 0; $compteurId <= 7; $compteurId++) {
+			if ( ! is_object(self::byLogicalId($this->getId()."_C".$compteurId, 'ipx800_compteur')) ) {
+				log::add('ipx800','debug','Creation compteur : '.$this->getId().'_C'.$compteurId);
+				$eqLogic = new ipx800_compteur();
+				$eqLogic->setLogicalId($this->getId().'_C'.$compteurId);
+				$eqLogic->setName('Compteur ' . ($compteurId+1));
+				$eqLogic->save();
+			}
+		}
+
+		$cmd = $this->getCmd(null, 'status');
+		if ( ! is_object($cmd) ) {
+			$cmd = new ecodeviceCmd();
+			$cmd->setName('Etat');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setType('info');
+			$cmd->setSubType('binary');
+			$cmd->setLogicalId('status');
+			$cmd->setIsVisible(1);
+			$cmd->setEventOnly(1);
+			$cmd->save();
 		}
 	}
 
@@ -206,7 +251,9 @@ class ipx800 extends eqLogic {
 				if (!is_object($eqLogic)) {
 					throw new Exception(__('Impossible de trouver l\'équipement : ', __FILE__) . $_eqLogic_id);
 				}
-				$eqLogic->configPush($this->getUrl(), $ipjeedom, $pathjeedom);
+				if ( method_exists($eqLogic, "configPush" ) ) {
+					$eqLogic->configPush($this->getUrl(), $ipjeedom, $pathjeedom);
+				}
 			}
 		}
 	}
@@ -221,6 +268,7 @@ class ipx800 extends eqLogic {
 
 	public function pull() {
 		if ( $this->getIsEnable() ) {
+			$statuscmd = $this->getCmd(null, 'status');
 			$this->xmlstatus = simplexml_load_file($this->getUrl(). 'globalstatus.xml');
 			$count = 0;
 			while ( $this->xmlstatus === false && $count < 3 ) {
@@ -228,8 +276,16 @@ class ipx800 extends eqLogic {
 				$count++;
 			}
 			if ( $this->xmlstatus === false ) {
+				if ($statuscmd->execCmd() != 0) {
+					$statuscmd->setCollectDate('');
+					$statuscmd->event(0);
+				}
 				log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." ".$eqLogic->getName()." get ".preg_replace("/:[^:]*@/", ":XXXX@", $this->getUrl()). 'globalstatus.xml');
-				throw new Exception(__('L\'ipx800 ne repond pas.',__FILE__)." ".$this->getName());
+				return false;
+			}
+			if ($statuscmd->execCmd() != 1) {
+				$statuscmd->setCollectDate('');
+				$statuscmd->event(1);
 			}
 			$eqLogic_cmd = $this->getCmd(null, 'updatetime');
 			$eqLogic_cmd->event(time());
@@ -263,18 +319,6 @@ class ipx800 extends eqLogic {
 							$eqLogic_cmd->event($status[0]);
 						}
 					}
-					$gceid = substr($eqLogicBouton->getLogicalId(), strpos($eqLogicBouton->getLogicalId(),"_")+2);
-					$xpathModele = '//count'.$gceid;
-					$status = $this->xmlstatus->xpath($xpathModele);
-					
-					if ( count($status) != 0 )
-					{
-						$eqLogic_cmd = $eqLogicBouton->getCmd(null, 'nbimpulsion');
-						if ($eqLogic_cmd->execCmd(null, 2) != $eqLogic_cmd->formatValue($status[0])) {
-							$eqLogic_cmd->setCollectDate('');
-							$eqLogic_cmd->event($status[0]);
-						}
-					}
 				}
 			}
 			foreach (self::byType('ipx800_analogique') as $eqLogicAnalogique) {
@@ -291,6 +335,38 @@ class ipx800 extends eqLogic {
 							$eqLogic_cmd->event($status[0]);
 							$eqLogic_cmd = $eqLogicAnalogique->getCmd(null, 'reel');
 							$eqLogic_cmd->event($eqLogic_cmd->execute());
+						}
+					}
+				}
+			}
+			foreach (self::byType('ipx800_compteur') as $eqLogicCompteur) {
+				if ( $eqLogicCompteur->getIsEnable() && substr($eqLogicCompteur->getLogicalId(), 0, strpos($eqLogicCompteur->getLogicalId(),"_")) == $this->getId() ) {
+					$gceid = substr($eqLogicCompteur->getLogicalId(), strpos($eqLogicCompteur->getLogicalId(),"_")+2);
+					$xpathModele = '//count'.$gceid;
+					$status = $this->xmlstatus->xpath($xpathModele);
+					
+					if ( count($status) != 0 )
+					{
+						$nbimpulsion_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsion');
+						$nbimpulsion = $nbimpulsion_cmd->execCmd(null, 2);
+						$nbimpulsionminute_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsionminute');
+						if ($nbimpulsion != $status[0]) {
+							if ( $nbimpulsion_cmd->getCollectDate() == '' ) {
+								$nbimpulsionminute = 0;
+							} else {
+								if ( $status[0] > $nbimpulsion ) {
+									$nbimpulsionminute = round (($status[0] - $nbimpulsion)/(time() - strtotime($nbimpulsion_cmd->getCollectDate()))*60, 6);
+								} else {
+									$nbimpulsionminute = round ($status[0]/(time() - strtotime($nbimpulsionminute_cmd->getCollectDate())*60), 6);
+								}
+							}
+							$nbimpulsionminute_cmd->setCollectDate(date('Y-m-d H:i:s'));
+							$nbimpulsionminute_cmd->event($nbimpulsionminute);
+							$nbimpulsion_cmd->setCollectDate(date('Y-m-d H:i:s'));
+							$nbimpulsion_cmd->event($status[0]);
+						} else {
+							$nbimpulsionminute_cmd->setCollectDate(date('Y-m-d H:i:s'));
+							$nbimpulsionminute_cmd->event(0);
 						}
 					}
 				}

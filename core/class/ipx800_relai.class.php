@@ -175,7 +175,10 @@ class ipx800_relai extends eqLogic {
         if (!is_object($cmd)) {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
-		$cmd->event(init('value'));
+		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('value'))) {
+			$cmd->setCollectDate('');
+			$cmd->event(init('value'));
+		}
     }
 
 	public function configPush($url_serveur, $ipjeedom, $pathjeedom) {

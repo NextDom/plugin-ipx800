@@ -54,9 +54,6 @@ function ipx800_update() {
         $cron->setSchedule('* * * * *');
         $cron->save();
 	}
-	foreach (eqLogic::byType('ipx800_compteur') as $SubeqLogic) {
-		$SubeqLogic->remove();
-	}
 	foreach (eqLogic::byType('ipx800_bouton') as $SubeqLogic) {
 		$SubeqLogic->save();
 	}
@@ -64,6 +61,9 @@ function ipx800_update() {
 		$SubeqLogic->save();
 	}
 	foreach (eqLogic::byType('ipx800_relai') as $SubeqLogic) {
+		$SubeqLogic->save();
+	}
+	foreach (eqLogic::byType('ipx800_compteur') as $SubeqLogic) {
 		$SubeqLogic->save();
 	}
 	foreach (eqLogic::byType('ipx800') as $eqLogic) {

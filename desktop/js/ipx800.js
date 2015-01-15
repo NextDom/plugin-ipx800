@@ -85,6 +85,9 @@ function addCmdToTable(_cmd) {
         tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
         tr += '</td>';
         tr += '<td>';
+        if (init(_cmd.logicalId) == 'nbimpulsionminute') {
+			tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="calcul" style="height : 33px;" placeholder="{{Calcul}}"></textarea> (utiliser #brut# dans la formule)';
+		}
         if (init(_cmd.logicalId) == 'reel') {
 			tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="calcul" style="height : 33px;" placeholder="{{Calcul}}"></textarea>';
 			tr += '<a class="btn btn-default cursor listEquipementInfo" data-input="calcul" style="margin-top : 5px;"><i class="fa fa-list-alt "></i> {{Rechercher équipement}}</a>';
@@ -104,7 +107,7 @@ function addCmdToTable(_cmd) {
 			tr += '</select>';
 		}
         tr += '</td>';
-        if (init(_cmd.logicalId) == 'reel') {
+        if (init(_cmd.logicalId) == 'reel' || init(_cmd.logicalId) == 'nbimpulsionminute') {
 			tr += '<td><input class="cmdAttr form-control input-sm" data-l1key="unite" style="width : 90px;" placeholder="{{Unite}}"></td>';
 		} else {
 			tr += '<td><input type=hidden class="cmdAttr form-control input-sm" data-l1key="unite" value=""></td>';
@@ -248,4 +251,5 @@ $('#bt_ApplyconfigPush').on('click', function() {
 $("#table_cmd_ipx800_analogique").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd_ipx800_relai").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd_ipx800_bouton").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd_ipx800_compteur").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});

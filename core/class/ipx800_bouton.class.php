@@ -65,15 +65,8 @@ class ipx800_bouton extends eqLogic {
 	public function postUpdate()
 	{
         $nbimpulsion = $this->getCmd(null, 'nbimpulsion');
-        if ( ! is_object($nbimpulsion) ) {
-            $nbimpulsion = new ipx800_boutonCmd();
-			$nbimpulsion->setName('Nombre d\'impulsion');
-			$nbimpulsion->setEqLogic_id($this->getId());
-			$nbimpulsion->setType('info');
-			$nbimpulsion->setSubType('numeric');
-			$nbimpulsion->setLogicalId('nbimpulsion');
-			$nbimpulsion->setEventOnly(1);
-			$nbimpulsion->save();
+        if ( is_object($nbimpulsion) ) {
+			$nbimpulsion->remove();
 		}
         $state = $this->getCmd(null, 'etat');
         if ( is_object($state) ) {
@@ -119,13 +112,10 @@ class ipx800_bouton extends eqLogic {
         if (!is_object($cmd)) {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
-		$cmd->event(init('state'));
-		$eqLogic = $cmd->getEqLogic();
-        if (!is_object($eqLogic) || $eqLogic->getIsEnable() != 1) {
-            throw new Exception(__('Equipement desactivé impossible d\éxecuter la commande : ' . $cmd->getHumanName(), __FILE__));
-        }
-		$nbimpulsion = $eqLogic->getCmd(null, 'nbimpulsion');
-		$nbimpulsion->event($nbimpulsion->getValue()+1);
+		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('state'))) {
+			$cmd->setCollectDate('');
+			$cmd->event(init('state'));
+		}
     }
 
 	public function configPush($url_serveur, $ipjeedom, $pathjeedom) {

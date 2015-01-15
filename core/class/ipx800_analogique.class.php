@@ -87,7 +87,10 @@ class ipx800_analogique extends eqLogic {
         if (!is_object($cmd)) {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
-		$cmd->event(init('voltage'));
+		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('voltage'))) {
+			$cmd->setCollectDate('');
+			$cmd->event(init('voltage'));
+		}
     }
 
     public function getLinkToConfiguration() {
@@ -137,9 +140,8 @@ class ipx800_analogiqueCmd extends cmd
 					$calcul = preg_replace("/#brut#/", "#".$brut->getId()."#", $calcul);
 				}
 				$calcul = scenarioExpression::setTags($calcul);
-				#$test = new evaluate();
-				#$result = $test->Evaluer($calcul);
-				eval('$result = '.$calcul.';');
+				$test = new evaluate();
+				$result = $test->Evaluer($calcul);
 				if (is_numeric($result)) {
 					$result = number_format($result, 2);
 				} else {
@@ -154,7 +156,8 @@ class ipx800_analogiqueCmd extends cmd
 				}
 				return $result;
 			} catch (Exception $e) {
-				log::add('ipx800', 'info', $e->getMessage());
+				$EqLogic = $this->getEqLogic();
+				log::add('ipx800', 'error', $EqLogic->getName()." error in ".$this->getConfiguration('calcul')." : ".$e->getMessage());
 				return scenarioExpression::setTags(str_replace('"', '', cmd::cmdToValue($this->getConfiguration('calcul'))));
 			}
 		} else {
