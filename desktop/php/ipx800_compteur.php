@@ -1,4 +1,4 @@
-    <div class="col-lg-9 eqLogic ipx800_analogique" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
+    <div class="col-lg-9 eqLogic ipx800_compteur" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
         <form class="form-horizontal">
             <fieldset>
                 <legend>
@@ -6,10 +6,10 @@
 				   <i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i>
                 </legend>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">{{Nom de l'entrée analogique}}</label>
+                    <label class="col-lg-2 control-label">{{Nom du compteur}}</label>
                     <div class="col-lg-3">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-                        <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'entrée analogique}}"/>
+                        <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'entrée numérique}}"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,7 +52,7 @@
         </form>
 
         <legend>{{Indicateurs}}</legend>
-        <table id="table_cmd_ipx800_analogique" class="table table-bordered table-condensed ipx800_analogique">
+        <table id="table_cmd_ipx800_compteur" class="table table-bordered table-condensed ipx800_compteur">
             <thead>
                 <tr>
                     <th style="width: 50px;">#</th>

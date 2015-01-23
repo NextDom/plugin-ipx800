@@ -190,20 +190,20 @@ class ipx800_boutonCmd extends cmd
         if ($this->getType() == 'info') {
             switch ($this->getSubType()) {
                 case 'binary':
-                    $value = strtolower($_value);
-                    if ($value == 'dn') {
-                        $value = 1;
+                    $_value = strtolower($_value);
+                    if ($_value == 'dn') {
+                        $_value = 1;
                     }
-                    if ($value == 'up') {
-                        $value = 0;
+                    if ($_value == 'up') {
+                        $_value = 0;
                     }
 					if ((is_numeric(intval($_value)) && intval($_value) > 1) || $_value || $_value == 1) {
-                        $value = 1;
+                        $_value = 1;
                     }
 					if ( $this->getDisplay('invertBinary') == 1 ) {
-						$value = ($value == 1) ? 0 : 1;
+						$_value = ($_value == 1) ? 0 : 1;
 					}
-                    return $value;
+                    return $_value;
             }
         }
         return $_value;

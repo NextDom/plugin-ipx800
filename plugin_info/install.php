@@ -19,16 +19,6 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function ipx800_install() {
-    $cron = cron::byClassAndFunction('ipx800', 'cron');
-    if (!is_object($cron)) {
-        $cron = new cron();
-        $cron->setClass('ipx800');
-        $cron->setFunction('cron');
-        $cron->setEnable(1);
-        $cron->setDeamon(0);
-        $cron->setSchedule('* * * * *');
-        $cron->save();
-    }
 }
 
 function ipx800_update() {
@@ -38,21 +28,9 @@ function ipx800_update() {
 		$cron->remove();
 	}
     $cron = cron::byClassAndFunction('ipx800', 'cron');
-    if (!is_object($cron)) {
-        $cron = new cron();
-        $cron->setClass('ipx800');
-        $cron->setFunction('pull');
-        $cron->setEnable(1);
-        $cron->setDeamon(0);
-        $cron->setSchedule('* * * * *');
-        $cron->save();
-    }
-	else
-	{
-        $cron->setEnable(1);
-        $cron->setDeamon(0);
-        $cron->setSchedule('* * * * *');
-        $cron->save();
+	if (is_object($cron)) {
+		$cron->stop();
+		$cron->remove();
 	}
 	foreach (eqLogic::byType('ipx800_bouton') as $SubeqLogic) {
 		$SubeqLogic->save();

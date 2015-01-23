@@ -28,10 +28,14 @@ Puis définir :
 
 == Quelques copies d'écran ==
 image::../images/menu.jpg[align="center"]
-image::../images/IPX800.jpg[align="center"]
+image::../images/One_ipx800.jpg[align="center"]
 image::../images/config_push.jpg[align="center"]
 
 == Change log ==
+
+1.28 : Ajout de lien vers les options d'affichage
+
+1.27 Correction de double cron
 
 1.26 Prise en charge des compteurs indépendament des boutons
 Ajout du nombre d'impulsion par minute

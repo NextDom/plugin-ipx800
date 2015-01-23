@@ -8,7 +8,7 @@
     <author>Thomas Guenneguez</author>
     <installation>Nécessite firmware 3.05.42 minimum</installation>
     <require>1.124.0</require>
-    <version>1.25</version>
+    <version>1.28</version>
     <category>automation protocol</category>
 </info>
 

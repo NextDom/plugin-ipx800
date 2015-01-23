@@ -119,6 +119,11 @@ function addCmdToTable(_cmd) {
 			tr += '<span class="expertModeVisible"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary" /> {{Inverser}}<br/></span>';
 		}
         tr += '</td>';
+        tr += '<td>';
+        if (is_numeric(_cmd.id)) {
+            tr += '<a class="btn btn-default btn-xs cmdAction expertModeVisible" data-action="configure"><i class="fa fa-cogs"></i></a> ';
+        }
+        tr += '</td>';
 		table_cmd = '#table_cmd';
 		if ( $(table_cmd+'_'+_cmd.eqType ).length ) {
 			table_cmd+= '_'+_cmd.eqType;
@@ -153,6 +158,7 @@ function addCmdToTable(_cmd) {
         tr += '</td>';
         tr += '<td>';
         if (is_numeric(_cmd.id)) {
+            tr += '<a class="btn btn-default btn-xs cmdAction expertModeVisible" data-action="configure"><i class="fa fa-cogs"></i></a> ';
             tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
         }
         tr += '</td>';
