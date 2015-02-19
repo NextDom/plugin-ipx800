@@ -26,33 +26,15 @@ Puis définir :
 * '''Compte'''
 * '''Mot de passe'''
 
+=== Frequence de rafraichissement ===
+Pour les entrées analogiques et les compteurs, les données récupéré par le plugin le sont toutes les minutes. Impossible de faire plus fréquent.
+Pour le reste, si le mode push est activé, le rafraichissement est quasi instantané.
+
 == Quelques copies d'écran ==
 image::../images/menu.jpg[align="center"]
 image::../images/One_ipx800.jpg[align="center"]
 image::../images/config_push.jpg[align="center"]
 
 == Change log ==
+include::changelog.asciidoc[]
 
-1.28 : Ajout de lien vers les options d'affichage
-
-1.27 Correction de double cron
-
-1.26 Prise en charge des compteurs indépendament des boutons
-Ajout du nombre d'impulsion par minute
-Ajout d'une information status
-
-1.24 Redéclanchement jusqu'à 3 fois en cas d'indispo de l'IPX
-
-1.18 Prise en compte des extensions x800 et x400
-
-1.15 Correction pour la reception des push pour les entrées numeric
-
-1.13 Prise en compte des unitées pour les entrées analogiques
-
-1.12 Correction de la cron pour ne prendre que les changements d'état.
-
-1.11 Possibilité de configurer le push que sur certaines entrées.
-
-1.09 Ajout des formules pour les entrée analogiques
-
-1.1 Ajout all on et all off

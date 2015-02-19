@@ -200,9 +200,6 @@ class ipx800_boutonCmd extends cmd
 					if ((is_numeric(intval($_value)) && intval($_value) > 1) || $_value || $_value == 1) {
                         $_value = 1;
                     }
-					if ( $this->getDisplay('invertBinary') == 1 ) {
-						$_value = ($_value == 1) ? 0 : 1;
-					}
                     return $_value;
             }
         }
