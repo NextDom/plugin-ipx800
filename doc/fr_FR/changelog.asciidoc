@@ -1,4 +1,6 @@
 [horizontal]
+1.31:: Supression de l'info updatetime
+
 1.30:: Ajout des Pince 50A  
 
 1.29::Ajout de Correction automatique par rapport au seuil Min et Max

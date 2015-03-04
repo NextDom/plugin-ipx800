@@ -69,20 +69,6 @@ class ipx800 extends eqLogic {
 
 	public function postInsert()
 	{
-		$ipx800Cmd = $this->getCmd(null, 'updatetime');
-		if ( ! is_object($ipx800Cmd)) {
-			$ipx800Cmd = new ipx800Cmd();
-			$ipx800Cmd->setName('Dernier refresh');
-			$ipx800Cmd->setEqLogic_id($this->getId());
-			$ipx800Cmd->setLogicalId('updatetime');
-			$ipx800Cmd->setUnite('');
-			$ipx800Cmd->setType('info');
-			$ipx800Cmd->setSubType('string');
-			$ipx800Cmd->setIsHistorized(0);
-			$ipx800Cmd->setEventOnly(1);
-			$ipx800Cmd->save();		
-		}
-
 		$cmd = $this->getCmd(null, 'status');
 		if ( ! is_object($cmd) ) {
 			$cmd = new ipx800Cmd();
@@ -230,6 +216,11 @@ class ipx800 extends eqLogic {
 			$reboot->setEventOnly(1);
 			$reboot->save();
 		}
+		$ipx800Cmd = $this->getCmd(null, 'updatetime');
+		if ( is_object($ipx800Cmd)) {
+			$ipx800Cmd->remove();		
+		}
+
 	}
 
 	public function preRemove()
@@ -317,8 +308,6 @@ class ipx800 extends eqLogic {
 				$statuscmd->setCollectDate('');
 				$statuscmd->event(1);
 			}
-			$eqLogic_cmd = $this->getCmd(null, 'updatetime');
-			$eqLogic_cmd->event(time());
 			foreach (self::byType('ipx800_relai') as $eqLogicRelai) {
 				if ( $eqLogicRelai->getIsEnable() && substr($eqLogicRelai->getLogicalId(), 0, strpos($eqLogicRelai->getLogicalId(),"_")) == $this->getId() ) {
 					$gceid = substr($eqLogicRelai->getLogicalId(), strpos($eqLogicRelai->getLogicalId(),"_")+2);

@@ -49,7 +49,7 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			unite = 'A';
 			break;
 		case 'Ph':
-			formule = '#brut#';
+			formule = '#brut# / 100';
 			unite = 'Ph';
 			break;
 		case 'SHT-X3HC':
