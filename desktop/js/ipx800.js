@@ -37,15 +37,15 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			unite = '°C';
 			break;
 		case 'X400 CT10A':
-			formule = '#brut# / 0.00323';
+			formule = '#brut# * 0.00323';
 			unite = 'A';
 			break;
 		case 'CT20A':
-			formule = '#brut# / 0.00646';
+			formule = '#brut# * 0.00646';
 			unite = 'A';
 			break;
 		case 'CT50A':
-			formule = '#brut# / 0.01615';
+			formule = '#brut# * 0.01615';
 			unite = 'A';
 			break;
 		case 'Ph':
@@ -248,8 +248,6 @@ $('#bt_ApplyconfigPush').on('click', function() {
         data: {
             action: "configPush",
 			id: $('.li_eqLogic.active').attr('data-eqLogic_id'),
-			ip: $('.configPushIP').val(),
-			path: $('.configPushPath').val(),
 			eqLogicPush_id: list_object.join(",")
         },
         dataType: 'json',

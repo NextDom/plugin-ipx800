@@ -69,6 +69,20 @@ class ipx800 extends eqLogic {
 
 	public function postInsert()
 	{
+		$ipx800Cmd = $this->getCmd(null, 'updatetime');
+		if ( ! is_object($ipx800Cmd)) {
+			$ipx800Cmd = new ipx800Cmd();
+			$ipx800Cmd->setName('Dernier refresh');
+			$ipx800Cmd->setEqLogic_id($this->getId());
+			$ipx800Cmd->setLogicalId('updatetime');
+			$ipx800Cmd->setUnite('');
+			$ipx800Cmd->setType('info');
+			$ipx800Cmd->setSubType('string');
+			$ipx800Cmd->setIsHistorized(0);
+			$ipx800Cmd->setEventOnly(1);
+			$ipx800Cmd->save();		
+		}
+
 		$cmd = $this->getCmd(null, 'status');
 		if ( ! is_object($cmd) ) {
 			$cmd = new ipx800Cmd();
@@ -217,8 +231,17 @@ class ipx800 extends eqLogic {
 			$reboot->save();
 		}
 		$ipx800Cmd = $this->getCmd(null, 'updatetime');
-		if ( is_object($ipx800Cmd)) {
-			$ipx800Cmd->remove();		
+		if ( ! is_object($ipx800Cmd)) {
+			$ipx800Cmd = new ipx800Cmd();
+			$ipx800Cmd->setName('Dernier refresh');
+			$ipx800Cmd->setEqLogic_id($this->getId());
+			$ipx800Cmd->setLogicalId('updatetime');
+			$ipx800Cmd->setUnite('');
+			$ipx800Cmd->setType('info');
+			$ipx800Cmd->setSubType('string');
+			$ipx800Cmd->setIsHistorized(0);
+			$ipx800Cmd->setEventOnly(1);
+			$ipx800Cmd->save();		
 		}
 
 	}
@@ -251,10 +274,8 @@ class ipx800 extends eqLogic {
 		}
 	}
 
-	public function configPush($ipjeedom, $pathjeedom) {
-		if ( $ipjeedom == "" ) {
-			throw new Exception(__('L\'adresse IP du serveur Jeedom doit être renseignée.',__FILE__));
-		}
+	public function configPush() {
+		$pathjeedom = preg_replace("/plugins.*$/", "", $_SERVER['PHP_SELF']);
 		if ( substr($pathjeedom, 0, 1) != "/" ) {
 			$pathjeedom = "/".$pathjeedom;
 		}
@@ -269,7 +290,7 @@ class ipx800 extends eqLogic {
 					throw new Exception(__('Impossible de trouver l\'équipement : ', __FILE__) . $_eqLogic_id);
 				}
 				if ( method_exists($eqLogic, "configPush" ) ) {
-					$eqLogic->configPush($this->getUrl(), $ipjeedom, $pathjeedom);
+					$eqLogic->configPush($this->getUrl(), $pathjeedom);
 				}
 			}
 		}
@@ -308,6 +329,8 @@ class ipx800 extends eqLogic {
 				$statuscmd->setCollectDate('');
 				$statuscmd->event(1);
 			}
+			$eqLogic_cmd = $this->getCmd(null, 'updatetime');
+			$eqLogic_cmd->event(time());
 			foreach (self::byType('ipx800_relai') as $eqLogicRelai) {
 				if ( $eqLogicRelai->getIsEnable() && substr($eqLogicRelai->getLogicalId(), 0, strpos($eqLogicRelai->getLogicalId(),"_")) == $this->getId() ) {
 					$gceid = substr($eqLogicRelai->getLogicalId(), strpos($eqLogicRelai->getLogicalId(),"_")+2);
@@ -375,22 +398,25 @@ class ipx800 extends eqLogic {
 						if ($nbimpulsion != $status[0]) {
 							log::add('ipx800','debug',"Change nbimpulsion off ".$eqLogicCompteur->getName());
 							if ( $nbimpulsion_cmd->getCollectDate() == '' ) {
+								log::add('ipx800','debug',"Change nbimpulsionminute 0");
 								$nbimpulsionminute = 0;
 							} else {
 								if ( $status[0] > $nbimpulsion ) {
+									log::add('ipx800','debug',"Change nbimpulsionminute round ((".$status[0]." - ".$nbimpulsion.")/(".time()." - strtotime(".$nbimpulsion_cmd->getCollectDate()."))*60, 6) = ".round (($status[0] - $nbimpulsion)/(time() - strtotime($nbimpulsion_cmd->getCollectDate()))*60, 6));
 									$nbimpulsionminute = round (($status[0] - $nbimpulsion)/(time() - strtotime($nbimpulsion_cmd->getCollectDate()))*60, 6);
 								} else {
+									log::add('ipx800','debug',"Change nbimpulsionminute round (".$status[0]."/(".time()." - strtotime(".$nbimpulsionminute_cmd->getCollectDate().")*60), 6) = ".round ($status[0]/(time() - strtotime($nbimpulsionminute_cmd->getCollectDate())*60), 6));
 									$nbimpulsionminute = round ($status[0]/(time() - strtotime($nbimpulsionminute_cmd->getCollectDate())*60), 6);
 								}
 							}
 							$nbimpulsionminute_cmd->setCollectDate(date('Y-m-d H:i:s'));
 							$nbimpulsionminute_cmd->event($nbimpulsionminute);
-							$nbimpulsion_cmd->setCollectDate(date('Y-m-d H:i:s'));
-							$nbimpulsion_cmd->event($status[0]);
 						} else {
 							$nbimpulsionminute_cmd->setCollectDate(date('Y-m-d H:i:s'));
 							$nbimpulsionminute_cmd->event(0);
 						}
+						$nbimpulsion_cmd->setCollectDate(date('Y-m-d H:i:s'));
+						$nbimpulsion_cmd->event($status[0]);
 					}
 				}
 			}

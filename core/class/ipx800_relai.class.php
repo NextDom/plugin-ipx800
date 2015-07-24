@@ -175,17 +175,18 @@ class ipx800_relai extends eqLogic {
         if (!is_object($cmd)) {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
+		log::add('ipx800','debug',"Receive push notification for ".$cmd->getName()." (". init('id').") : value = ".init('state'));
 		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('value'))) {
 			$cmd->setCollectDate('');
 			$cmd->event(init('value'));
 		}
     }
 
-	public function configPush($url_serveur, $ipjeedom, $pathjeedom) {
+	public function configPush($url_serveur, $pathjeedom) {
         $cmd = $this->getCmd(null, 'state');
 		$gceid = substr($this->getLogicalId(), strpos($this->getLogicalId(),"_")+2);
 		$url_serveur .= 'protect/settings/push2.htm?channel='.($gceid+32);
-		$url = $url_serveur .'&server='.$ipjeedom.'&port=80&pass=&enph=1';
+		$url = $url_serveur .'&server='.$_SERVER['SERVER_ADDR'].'&port='.$_SERVER['SERVER_PORT'].'&pass=&enph=1';
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 		$result = file_get_contents($url);
 		if ( $result === false ) {

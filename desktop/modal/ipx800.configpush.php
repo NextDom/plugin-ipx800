@@ -27,19 +27,6 @@ if (!is_object($eqLogic)) {
 }
 ?>
 <fieldset>
-<legend>{{Information générale}}</legend>
-<div class="form-group">
-	<label class="col-lg-2 control-label">{{IP de Jeedom}}</label>
-	<div class="col-lg-3">
-		<input type="text" class="configPushIP" value="<?php echo config::byKey('internalAddr');?>"/>
-	</div>
-	<label class="col-lg-2 control-label">{{Chemin web}}</label>
-	<div class="col-lg-3">
-		<input type="text" class="configPushPath" value="jeedom"/>
-	</div>
-</div>
-</fieldset>
-<fieldset>
 <legend>{{Relai}}</legend>
 <?php
 echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="relai_' . $eqLogic->getId() . '">';
