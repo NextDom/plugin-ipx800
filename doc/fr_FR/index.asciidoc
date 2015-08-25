@@ -31,9 +31,9 @@ Pour les entrées analogiques et les compteurs, les données récupéré par le 
 Pour le reste, si le mode push est activé, le rafraichissement est quasi instantané.
 
 == Quelques copies d'écran ==
-image::../images/menu.jpg[align="center"]
-image::../images/One_ipx800.jpg[align="center"]
-image::../images/config_push.jpg[align="center"]
+image::../images/ipx800_screenshot1.jpg[align="center"]
+image::../images/ipx800_screenshot2.jpg[align="center"]
+image::../images/ipx800_screenshot3.jpg[align="center"]
 
 == Change log ==
 include::changelog.asciidoc[]

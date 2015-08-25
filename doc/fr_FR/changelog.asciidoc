@@ -1,4 +1,6 @@
 [horizontal]
+1.37:: Correction par rapport au nouveau core.
+
 1.36:: Correction des formules pour les pinces ampèremetriques
 
 1.35:: Message de debug pour les receptions de push
