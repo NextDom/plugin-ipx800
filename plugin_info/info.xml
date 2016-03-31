@@ -7,8 +7,8 @@
     <licence>AGPL</licence>
     <author>Thomas Guenneguez</author>
     <installation>Nécessite firmware 3.05.42 minimum</installation>
-    <require>1.124.0</require>
-    <version>1.36</version>
+    <require>2.0</require>
+    <version>1.40</version>
     <category>automation protocol</category>
 </info>
 

@@ -29,10 +29,10 @@ class ipx800 extends eqLogic {
 
     /*     * ***********************Methode static*************************** */
 
-	public static function cron() {
+	public static function pull() {
 		log::add('ipx800','debug','cron start');
 		foreach (self::byType('ipx800') as $eqLogic) {
-			$eqLogic->pull();
+			$eqLogic->scan();
 		}
 		log::add('ipx800','debug','cron stop');
 	}
@@ -275,7 +275,11 @@ class ipx800 extends eqLogic {
 	}
 
 	public function configPush() {
-		$pathjeedom = preg_replace("/plugins.*$/", "", $_SERVER['PHP_SELF']);
+		if ( config::byKey("internalAddr") == "" || config::byKey("internalPort") == "" )
+		{
+			throw new Exception(__('L\'adresse IP ou le port local de jeedom ne sont pas définit (Administration => Configuration réseaux => Accès interne).', __FILE__));
+		}
+		$pathjeedom = config::byKey("internalComplement");
 		if ( substr($pathjeedom, 0, 1) != "/" ) {
 			$pathjeedom = "/".$pathjeedom;
 		}
@@ -290,7 +294,7 @@ class ipx800 extends eqLogic {
 					throw new Exception(__('Impossible de trouver l\'équipement : ', __FILE__) . $_eqLogic_id);
 				}
 				if ( method_exists($eqLogic, "configPush" ) ) {
-					$eqLogic->configPush($this->getUrl(), $pathjeedom);
+					$eqLogic->configPush($this->getUrl(), $pathjeedom, config::byKey("internalAddr"), config::byKey("internalPort"));
 				}
 			}
 		}
@@ -299,14 +303,14 @@ class ipx800 extends eqLogic {
 	public function event() {
 		foreach (eqLogic::byType('ipx800') as $eqLogic) {
 			if ( $eqLogic->getId() == init('id') ) {
-				$eqLogic->pull();
+				$eqLogic->scan();
 			}
 		}
 	}
 
-	public function pull() {
+	public function scan() {
 		if ( $this->getIsEnable() ) {
-			log::add('ipx800','debug','pull '.$this->getName());
+			log::add('ipx800','debug','scan '.$this->getName());
 			$statuscmd = $this->getCmd(null, 'status');
 			$url = $this->getUrl();
 			log::add('ipx800','debug','get '.preg_replace("/:[^:]*@/", ":XXXX@", $url).'globalstatus.xml');
@@ -376,11 +380,11 @@ class ipx800 extends eqLogic {
 						$eqLogic_cmd = $eqLogicAnalogique->getCmd(null, 'brut');
 						if ($eqLogic_cmd->execCmd(null, 2) != $eqLogic_cmd->formatValue($status[0])) {
 							log::add('ipx800','debug',"Change brut off ".$eqLogicAnalogique->getName());
-							$eqLogic_cmd->setCollectDate('');
-							$eqLogic_cmd->event($status[0]);
-							$eqLogic_cmd = $eqLogicAnalogique->getCmd(null, 'reel');
-							$eqLogic_cmd->event($eqLogic_cmd->execute());
 						}
+						$eqLogic_cmd->setCollectDate('');
+						$eqLogic_cmd->event($status[0]);
+						$eqLogic_cmd = $eqLogicAnalogique->getCmd(null, 'reel');
+						$eqLogic_cmd->event($eqLogic_cmd->execute());
 					}
 				}
 			}
@@ -395,7 +399,7 @@ class ipx800 extends eqLogic {
 						$nbimpulsion_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsion');
 						$nbimpulsion = $nbimpulsion_cmd->execCmd(null, 2);
 						$nbimpulsionminute_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsionminute');
-						if ($nbimpulsion != $status[0]) {
+						if ( $nbimpulsion != $status[0] ) {
 							log::add('ipx800','debug',"Change nbimpulsion off ".$eqLogicCompteur->getName());
 							if ( $nbimpulsion_cmd->getCollectDate() == '' ) {
 								log::add('ipx800','debug',"Change nbimpulsionminute 0");
@@ -420,7 +424,7 @@ class ipx800 extends eqLogic {
 					}
 				}
 			}
-			log::add('ipx800','debug','pull end '.$this->getName());
+			log::add('ipx800','debug','scan end '.$this->getName());
 		}
 	}
     /*     * **********************Getteur Setteur*************************** */

@@ -121,8 +121,7 @@ class ipx800_compteurCmd extends cmd
 				$calcul = $this->getConfiguration('calcul');
 				$calcul = preg_replace("/#brut#/", $_value, $calcul);
 				$calcul = scenarioExpression::setTags($calcul);
-				$test = new evaluate();
-				$result = $test->Evaluer($calcul);
+				$result = evaluate($calcul);
 				parent::event($result, $_loop);
 			} catch (Exception $e) {
 				$EqLogic = $this->getEqLogic();

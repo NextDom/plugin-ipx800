@@ -119,11 +119,11 @@ class ipx800_bouton extends eqLogic {
 		}
     }
 
-	public function configPush($url_serveur, $pathjeedom) {
+	public function configPush($url_serveur, $pathjeedom, $ipjeedom, $portjeeom) {
         $cmd = $this->getCmd(null, 'state');
 		$gceid = substr($this->getLogicalId(), strpos($this->getLogicalId(),"_")+2);
 		$url_serveur .= 'protect/settings/push1.htm?channel='.$gceid;
-		$url = $url_serveur .'&server='.$_SERVER['SERVER_ADDR'].'&port='.$_SERVER['SERVER_PORT'].'&pass=&enph=1';
+		$url = $url_serveur .'&server='.$ipjeedom.'&port='.$portjeeom.'&pass=&enph=1';
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 		$result = file_get_contents($url);
 		if ( $result === false )
@@ -184,7 +184,7 @@ class ipx800_boutonCmd extends cmd
         return false;
     }
 
-    public function formatValue($_value) {
+    public function formatValue($_value, $_quote = false) {
         if (trim($_value) == '') {
             return '';
         }
@@ -207,5 +207,48 @@ class ipx800_boutonCmd extends cmd
         return $_value;
     }
     /*     * **********************Getteur Setteur*************************** */
+	public function imperihomeGenerate($ISSStructure) {
+		$eqLogic = $this->getEqLogic(); // Récupération de l'équipement de la commande
+		if ( $this->getLogicalId() == 'state' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
+			$btn_on = $eqLogic->getCmd(null, 'btn_on');
+			if ( $btn_on->getIsVisible() )
+			{
+				$type = 'DevSwitch'; // Le type Imperihome qui correspond le mieux à la commande
+			}
+			else
+			{
+				$type = 'DevDoor'; // Le type Imperihome qui correspond le mieux à la commande
+			}
+		}
+		else {
+			return $info_device;
+		}
+		$object = $eqLogic->getObject(); // Récupération de l'objet de l'équipement
+
+		// Construction de la structure de base
+		$info_device = array(
+		'id' => $this->getId(), // ID de la commande, ne pas mettre autre chose!
+		'name' => $eqLogic->getName()." - ".$this->getName(), // Nom de l'équipement que sera affiché par Imperihome: mettre quelque chose de parlant...
+		'room' => (is_object($object)) ? $object->getId() : 99999, // Numéro de la pièce: ne pas mettre autre chose que ce code
+		'type' => $type, // Type de l'équipement à retourner (cf ci-dessus)
+		'params' => array(), // Le tableau des paramètres liés à ce type (qui sera complété aprés.
+		);
+		#$info_device['params'] = $ISSStructure[$info_device['type']]['params']; // Ici on vient copier la structure type: laisser ce code
+
+		if ( $btn_on->getIsVisible() )
+		{
+			array_push ($info_device['params'], array("value" =>  '#' . $eqLogic->getCmd(null, 'state')->getId() . '#', "key" => "status", "type" => "infoBinary", "Description" => "Current status : 1 = On / 0 = Off"));
+			$info_device['actions']["setStatus"]["item"]["0"] = $eqLogic->getCmd(null, 'btn_off')->getId();
+			$info_device['actions']["setStatus"]["item"]["1"] = $eqLogic->getCmd(null, 'btn_on')->getId();
+		}
+		else
+		{
+			array_push ($info_device['params'], array("value" =>  '#' . $eqLogic->getCmd(null, 'state')->getId() . '#', "key" => "tripped", "type" => "infoBinary", "Description" => "Is the sensor tripped ? (0 = No / 1 = Tripped)"));
+			array_push ($info_device['params'], array("value" =>  '0', "key" => "armable", "type" => "infoBinary", "Description" => "Ability to arm the device : 1 = Yes / 0 = No"));
+			array_push ($info_device['params'], array("value" =>  '0', "key" => "ackable", "type" => "infoBinary", "Description" => "Ability to acknowledge alerts : 1 = Yes / 0 = No"));
+		}
+		// Ici on traite les autres commandes (hors "Mode")
+		return $info_device;
+	}
 }
 ?>

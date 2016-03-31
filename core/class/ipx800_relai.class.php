@@ -182,11 +182,11 @@ class ipx800_relai extends eqLogic {
 		}
     }
 
-	public function configPush($url_serveur, $pathjeedom) {
+	public function configPush($url_serveur, $pathjeedom, $ipjeedom, $portjeeom) {
         $cmd = $this->getCmd(null, 'state');
 		$gceid = substr($this->getLogicalId(), strpos($this->getLogicalId(),"_")+2);
 		$url_serveur .= 'protect/settings/push2.htm?channel='.($gceid+32);
-		$url = $url_serveur .'&server='.$_SERVER['SERVER_ADDR'].'&port='.$_SERVER['SERVER_PORT'].'&pass=&enph=1';
+		$url = $url_serveur .'&server='.$ipjeedom.'&port='.$portjeeom.'&pass=&enph=1';
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 		$result = file_get_contents($url);
 		if ( $result === false ) {
@@ -226,7 +226,7 @@ class ipx800_relaiCmd extends cmd
     /*     * *********************Methode d'instance************************* */
 
     public function execute($_options = null) {
-		log::add('ipx800','debug','execute '.$_options);
+		log::add('ipx800','debug','execute');
 		$eqLogic = $this->getEqLogic();
         if (!is_object($eqLogic) || $eqLogic->getIsEnable() != 1) {
             throw new Exception(__('Equipement desactivé impossible d\éxecuter la commande : ' . $this->getHumanName(), __FILE__));
@@ -257,6 +257,61 @@ class ipx800_relaiCmd extends cmd
 		}
         return false;
     }
-    /*     * **********************Getteur Setteur*************************** */
+
+    public function imperihomeCmd() {
+ 		if ( $this->getLogicalId() == 'state' ) {
+			return true;
+		}
+		elseif ( $this->getLogicalId() == 'impulsion' ) {
+			return true;
+		}
+		elseif ( $this->getLogicalId() == 'commute' ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+    }
+
+	public function imperihomeGenerate($ISSStructure) {
+		if ( $this->getLogicalId() == 'state' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
+			$type = 'DevSwitch'; // Le type Imperihome qui correspond le mieux à la commande
+		}
+		elseif ( $this->getLogicalId() == 'impulsion' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
+			$type = 'DevScene'; // Le type Imperihome qui correspond le mieux à la commande
+		}
+		elseif ( $this->getLogicalId() == 'commute' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
+			$type = 'DevScene'; // Le type Imperihome qui correspond le mieux à la commande
+		}
+		else {
+			return $info_device;
+		}
+		$eqLogic = $this->getEqLogic(); // Récupération de l'équipement de la commande
+		$object = $eqLogic->getObject(); // Récupération de l'objet de l'équipement
+
+		// Construction de la structure de base
+		$info_device = array(
+		'id' => $this->getId(), // ID de la commande, ne pas mettre autre chose!
+		'name' => $eqLogic->getName()." - ".$this->getName(), // Nom de l'équipement que sera affiché par Imperihome: mettre quelque chose de parlant...
+		'room' => (is_object($object)) ? $object->getId() : 99999, // Numéro de la pièce: ne pas mettre autre chose que ce code
+		'type' => $type, // Type de l'équipement à retourner (cf ci-dessus)
+		'params' => array(), // Le tableau des paramètres liés à ce type (qui sera complété aprés.
+		);
+		#$info_device['params'] = $ISSStructure[$info_device['type']]['params']; // Ici on vient copier la structure type: laisser ce code
+
+		array_push ($info_device['params'], array("value" =>  '#' . $eqLogic->getCmd(null, 'state')->getId() . '#', "key" => "status", "type" => "infoBinary", "Description" => "Current status : 1 = On / 0 = Off"));
+		if ( $this->getLogicalId() == 'state' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
+			$info_device['actions']["setStatus"]["item"]["0"] = $eqLogic->getCmd(null, 'btn_off')->getId();
+			$info_device['actions']["setStatus"]["item"]["1"] = $eqLogic->getCmd(null, 'btn_on')->getId();
+		}
+		elseif ( $this->getLogicalId() == 'impulsion' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
+			$info_device['actions']["launchScene"] = $eqLogic->getCmd(null, 'impulsion')->getId();
+		}
+		elseif ( $this->getLogicalId() == 'commute' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
+			$info_device['actions']["launchScene"] = $eqLogic->getCmd(null, 'commute')->getId();
+		}
+		// Ici on traite les autres commandes (hors "Mode")
+		return $info_device;
+	}
 }
 ?>

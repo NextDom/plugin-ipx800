@@ -1,4 +1,16 @@
 [horizontal]
+1.40:: Mise a jour des entrées analogiques, même si la valeur ne change pas pour les graphiques.
+
+1.39:: Compatibilité Jeedom 2.0
+
+1.38:: Modification de cron pour plus d'autonomie.
++
+Modification de l'extension du logo.
++
+Compatibilité Imperihome
++
+Retrait de la suppression des équipements lors de la désactivation du plugin
+
 1.37:: Correction par rapport au nouveau core.
 
 1.36:: Correction des formules pour les pinces ampèremetriques
@@ -22,7 +34,9 @@
 1.27:: Correction de double cron.
 
 1.26:: Prise en charge des compteurs indépendament des boutons.
++
 Ajout du nombre d'impulsions par minute.
++
 Ajout d'une information status.
 
 1.24:: Redéclenchement jusqu'à 3 fois en cas d'indispo de l'IPX.

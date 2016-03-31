@@ -19,13 +19,28 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function ipx800_install() {
+    $cron = cron::byClassAndFunction('ipx800', 'pull');
+	if ( ! is_object($cron)) {
+        $cron = new cron();
+        $cron->setClass('ipx800');
+        $cron->setFunction('pull');
+        $cron->setEnable(1);
+        $cron->setDeamon(0);
+        $cron->setSchedule('* * * * *');
+        $cron->save();
+	}
 }
 
 function ipx800_update() {
     $cron = cron::byClassAndFunction('ipx800', 'pull');
-	if (is_object($cron)) {
-		$cron->stop();
-		$cron->remove();
+	if ( ! is_object($cron)) {
+        $cron = new cron();
+        $cron->setClass('ipx800');
+        $cron->setFunction('pull');
+        $cron->setEnable(1);
+        $cron->setDeamon(0);
+        $cron->setSchedule('* * * * *');
+        $cron->save();
 	}
     $cron = cron::byClassAndFunction('ipx800', 'cron');
 	if (is_object($cron)) {
@@ -60,20 +75,5 @@ function ipx800_remove() {
 		$cron->stop();
         $cron->remove();
     }
-	foreach (eqLogic::byType('ipx800_compteur') as $SubeqLogic) {
-		$SubeqLogic->remove();
-	}
-	foreach (eqLogic::byType('ipx800_bouton') as $SubeqLogic) {
-		$SubeqLogic->remove();
-	}
-	foreach (eqLogic::byType('ipx800_analogique') as $SubeqLogic) {
-		$SubeqLogic->remove();
-	}
-	foreach (eqLogic::byType('ipx800_relai') as $SubeqLogic) {
-		$SubeqLogic->remove();
-	}
-	foreach (eqLogic::byType('ipx800') as $eqLogic) {
-		$eqLogic->remove();
-	}
 }
 ?>

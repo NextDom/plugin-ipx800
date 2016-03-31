@@ -140,8 +140,7 @@ class ipx800_analogiqueCmd extends cmd
 					$calcul = preg_replace("/#brut#/", "#".$brut->getId()."#", $calcul);
 				}
 				$calcul = scenarioExpression::setTags($calcul);
-				$test = new evaluate();
-				$result = $test->Evaluer($calcul);
+				$result = jeedom::evaluateExpression($calcul);
 				if (is_numeric($result)) {
 					$result = number_format($result, 2);
 				} else {
@@ -162,6 +161,15 @@ class ipx800_analogiqueCmd extends cmd
 			}
 		} else {
 			return $this->getConfiguration('value');
+		}
+    }
+
+    public function imperihomeCmd() {
+ 		if ( $this->getLogicalId() == 'reel' ) {
+			return true;
+		}
+		else {
+			return false;
 		}
     }
 }
