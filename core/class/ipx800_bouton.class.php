@@ -156,7 +156,7 @@ class ipx800_boutonCmd extends cmd
 
     /*     * *********************Methode d'instance************************* */
     public function execute($_options = null) {
-		log::add('ipx800','debug','execute '.$_options);
+		log::add('ipx800','debug','execute');
 		$eqLogic = $this->getEqLogic();
         if (!is_object($eqLogic) || $eqLogic->getIsEnable() != 1) {
             throw new Exception(__('Equipement desactivé impossible d\éxecuter la commande : ' . $this->getHumanName(), __FILE__));

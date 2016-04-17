@@ -1,7 +1,7 @@
 [panel,primary]
 .Lorsqu'une entrée/sortie change, la mise à jour dans jeedom n'est pas instantané ?
 --
-Oui il suffit de demander en passant par le forum.
+Oui elle l'est si vous avez activé le push.
 --
 
 .A quelle fréquence les données sont-elles mise à jour ?
