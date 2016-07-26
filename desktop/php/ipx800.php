@@ -119,7 +119,7 @@ $eqLogics = eqLogic::byType('ipx800');
 												echo '<i class="fa fa-twitch cursor eqLogicAction" data-action="hide" data-eqLogic_id="bouton_x8002_' . $eqLogic->getId() . '"></i>'."\n";
 												echo '<a class="cursor eqLogicAction" data-action="hide" style="display: inline;" data-eqLogic_id="bouton_x8002_' . $eqLogic->getId() . '" data-eqLogic_type="ipx800">{{Entrée numérique}}</a>'."\n";
 												echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="bouton_x8002_' . $eqLogic->getId() . '" style="display: none;">'."\n";
-													for ($compteurId = 16; $compteurId <= 24; $compteurId++) {
+													for ($compteurId = 16; $compteurId <= 26; $compteurId++) {
 														$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_B".$compteurId, 'ipx800_bouton');
 														if ( is_object($SubeqLogic) ) {
 															echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $SubeqLogic->getId() . '" data-eqLogic_type="ipx800_bouton"><a>' . $SubeqLogic->getName() . '</a></li>'."\n";
@@ -194,6 +194,36 @@ $eqLogics = eqLogic::byType('ipx800');
 										echo '<a class="cursor eqLogicAction" data-action="hide" style="display: inline;" data-eqLogic_id="x4403_' . $eqLogic->getId() . '" data-eqLogic_type="ipx800">{{Carte X440 3}}</a>'."\n";
 										echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="x4403_' . $eqLogic->getId() . '" style="display: none;">'."\n";
 											for ($compteurId = 12; $compteurId <= 15; $compteurId++) {
+												$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_A".$compteurId, 'ipx800_analogique');
+												if ( is_object($SubeqLogic) ) {
+													echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $SubeqLogic->getId() . '" data-eqLogic_type="ipx800_analogique"><a>' . $SubeqLogic->getName() . '</a></li>'."\n";
+												}
+											}
+										echo '</ul>'."\n";
+									echo '</li>'."\n";
+								echo '</ul>'."\n";
+							echo '</li>'."\n";
+							echo '<li>'."\n";
+								echo '<i class="fa fa-sitemap cursor eqLogicAction" data-action="hide" data-eqLogic_id="extensionx200ph_' . $eqLogic->getId() . '"></i>'."\n";
+								echo '<a class="cursor eqLogicAction" data-action="hide" style="display: inline;" data-eqLogic_id="extensionx200ph_' . $eqLogic->getId() . '" data-eqLogic_type="ipx800">{{Extensions X200ph}}</a>'."\n";
+								echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="extensionx200ph_' . $eqLogic->getId() . '" style="display: none;">'."\n";
+									echo '<li>'."\n";
+										echo '<i class="fa fa-sitemap cursor eqLogicAction" data-action="hide" data-eqLogic_id="x200ph1_' . $eqLogic->getId() . '"></i>'."\n";
+										echo '<a class="cursor eqLogicAction" data-action="hide" style="display: inline;" data-eqLogic_id="x200ph1_' . $eqLogic->getId() . '" data-eqLogic_type="ipx800">{{Carte X200ph 1}}</a>'."\n";
+										echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="x200ph1_' . $eqLogic->getId() . '" style="display: none;">'."\n";
+											for ($compteurId = 12; $compteurId <= 13; $compteurId++) {
+												$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_A".$compteurId, 'ipx800_analogique');
+												if ( is_object($SubeqLogic) ) {
+													echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $SubeqLogic->getId() . '" data-eqLogic_type="ipx800_analogique"><a>' . $SubeqLogic->getName() . '</a></li>'."\n";
+												}
+											}
+										echo '</ul>'."\n";
+									echo '</li>'."\n";
+									echo '<li>'."\n";
+										echo '<i class="fa fa-sitemap cursor eqLogicAction" data-action="hide" data-eqLogic_id="x200ph2_' . $eqLogic->getId() . '"></i>'."\n";
+										echo '<a class="cursor eqLogicAction" data-action="hide" style="display: inline;" data-eqLogic_id="x200ph2_' . $eqLogic->getId() . '" data-eqLogic_type="ipx800">{{Carte X200ph 2}}</a>'."\n";
+										echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="x200ph2_' . $eqLogic->getId() . '" style="display: none;">'."\n";
+											for ($compteurId = 14; $compteurId <= 15; $compteurId++) {
 												$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_A".$compteurId, 'ipx800_analogique');
 												if ( is_object($SubeqLogic) ) {
 													echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $SubeqLogic->getId() . '" data-eqLogic_type="ipx800_analogique"><a>' . $SubeqLogic->getName() . '</a></li>'."\n";

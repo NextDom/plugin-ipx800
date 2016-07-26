@@ -29,7 +29,10 @@ try {
         if (!is_object($eqLogic)) {
             throw new Exception(__('ipx800 eqLogic non trouvé : ', __FILE__) . init('id'));
         }
-		$eqLogic->configPush();
+		if ( strpos(init('ip'), '/') !== false ) {
+            throw new Exception(__('L\'IP de Jeedom ne doit pas contenir de "/" : ', __FILE__) . init('ip'));
+		}
+		$eqLogic->configPush(init('ip'), init('path'));
         ajax::success(__('Url de push sur ipx800 configuré', __FILE__));
     }
 

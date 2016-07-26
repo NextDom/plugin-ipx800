@@ -32,6 +32,18 @@ class ipx800_analogique extends eqLogic {
 		} else {
 			$brut = $this->getCmd(null, 'brut');
 		}
+        $brut = $this->getCmd(null, 'brut');
+        if ( ! is_object($brut) ) {
+            $brut = new ipx800_analogiqueCmd();
+			$brut->setName('Brut');
+			$brut->setEqLogic_id($this->getId());
+			$brut->setType('info');
+			$brut->setSubType('numeric');
+			$brut->setLogicalId('brut');
+			$brut->setIsVisible(false);
+			$brut->setEventOnly(1);
+			$brut->save();
+		}
         $reel = $this->getCmd(null, 'reel');
         if ( ! is_object($reel) ) {
             $reel = new ipx800_analogiqueCmd();

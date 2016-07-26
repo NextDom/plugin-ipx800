@@ -279,9 +279,11 @@ class ipx800_relaiCmd extends cmd
 		}
 		elseif ( $this->getLogicalId() == 'impulsion' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
 			$type = 'DevScene'; // Le type Imperihome qui correspond le mieux à la commande
+			$type = 'DevSwitch'; // Le type Imperihome qui correspond le mieux à la commande
 		}
 		elseif ( $this->getLogicalId() == 'commute' ) { // Sauf si on est entrain de traiter la commande "Mode", à ce moment là on indique un autre type
 			$type = 'DevScene'; // Le type Imperihome qui correspond le mieux à la commande
+			$type = 'DevSwitch'; // Le type Imperihome qui correspond le mieux à la commande
 		}
 		else {
 			return $info_device;

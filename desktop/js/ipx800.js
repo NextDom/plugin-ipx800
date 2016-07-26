@@ -36,7 +36,7 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			formule = '( ( #brut# * 0.00323 ) - 0.25 ) / 0.028';
 			unite = '°C';
 			break;
-		case 'CT10A':
+		case 'X400 CT10A':
 			formule = '#brut# * 0.00323';
 			unite = 'A';
 			break;

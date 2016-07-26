@@ -1,6 +1,6 @@
 {
     "plugins/ipx800/desktop/php/ipx800_analogique.php": {
-        "Général": "Général",
+        "Général": "General",
         "Nom de l'entrée analogique": "Nombre de la entrada analógica",
         "Objet parent": "Objeto padre",
         "Aucun": "Ningún",
@@ -100,7 +100,7 @@
         "Paramètres": "Parámetros",
         "Supprimer": "Borrar",
         "Sauvegarder": "Guardar",
-        "Sauvegarde effectuée avec succès": "Copia de seguridad ejecutada con éxito  ",
+        "Sauvegarde effectuée avec succès": "Guardado correctamente",
         "Utilisez sur l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"></i>": "Utilice el siguiente icono para ver el detalle del elemento <i class=\"fa fa-sitemap\"></i> "
     },
     "plugins/ipx800/desktop/modal/ipx800.configpush.php": {
@@ -122,12 +122,12 @@
     "plugins/ipx800/desktop/js/ipx800.js": {
         "Nom": "Nombre",
         "Calcul": "Calculo",
-        "Rechercher équipement": "Buscar equipo",
+        "Rechercher équipement": "Buscar dispositivo",
         "Formule standard": "Fórmula estándar",
         "Unite": "Unidad",
         "Min": "Min",
         "Max": "Max",
-        "Historiser": "Historizar",
+        "Historiser": "Guardar historial",
         "Afficher": "Mostrar",
         "Inverser": "Invertir",
         "Correction Min Auto": "Corrección Min Auto",

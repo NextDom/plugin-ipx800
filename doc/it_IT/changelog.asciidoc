@@ -1,0 +1,56 @@
+[horizontal]
+1.40:: Mise a jour des entrées analogiques, même si la valeur ne change pas pour les graphiques.
+
+1.39:: Compatibilité Jeedom 2.0
+
+1.38:: Modification de cron pour plus d'autonomie.
++
+Modification de l'extension du logo.
++
+Compatibilité Imperihome
++
+Retrait de la suppression des équipements lors de la désactivation du plugin
+
+1.37:: Correction par rapport au nouveau core.
+
+1.36:: Correction des formules pour les pinces ampèremetriques
+
+1.35:: Message de debug pour les receptions de push
+
+1.34:: Prise en compte du port pour jeedom et de l'IP sans qu'il soit nécessaire que ce soit renseigné au niveau globale.
+
+1.33:: Correction des fréquences d'impulsion par minute
+
+1.32:: Message de debug pour les calculs d'impulsion/minute
+
+1.31:: Supression de l'info `updatetime`.
+
+1.30:: Ajout des pinces 50A  .
+
+1.29:: Ajout de Correction automatique par rapport au seuil Min et Max.
+
+1.28:: Ajout de lien vers les options d'affichage.
+
+1.27:: Correction de double cron.
+
+1.26:: Prise en charge des compteurs indépendament des boutons.
++
+Ajout du nombre d'impulsions par minute.
++
+Ajout d'une information status.
+
+1.24:: Redéclenchement jusqu'à 3 fois en cas d'indispo de l'IPX.
+
+1.18:: Prise en compte des extensions x800 et x400.
+
+1.15:: Correction pour la réception des push pour les entrées numériques.
+
+1.13:: Prise en compte des unitées pour les entrées analogiques.
+
+1.12:: Correction de la cron pour ne prendre que les changements d'état.
+
+1.11:: Possibilité de configurer le push que sur certaines entrées.
+
+1.09:: Ajout des formules pour les entrée analogiques.
+
+1.1:: Ajout `all on` et `all off`.
