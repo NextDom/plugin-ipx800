@@ -188,21 +188,21 @@ class ipx800_relai extends eqLogic {
 		$url_serveur .= 'protect/settings/push2.htm?channel='.($gceid+32);
 		$url = $url_serveur .'&server='.$ipjeedom.'&port='.$portjeeom.'&pass=&enph=1';
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
-		$result = file_get_contents($url);
+		$result = @file_get_contents($url);
 		if ( $result === false ) {
 			log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
 		}
 		$url = $url_serveur .'&cmd1='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.config::byKey('api').'&type=ipx800_relai&id='.$cmd->getId().'&value=1');
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
-		$result = file_get_contents($url);
+		$result = @file_get_contents($url);
 		if ( $result === false ) {
 			log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
 		}
 		$url = $url_serveur .'&cmd2='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.config::byKey('api').'&type=ipx800_relai&id='.$cmd->getId().'&value=0');
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
-		$result = file_get_contents($url);
+		$result = @file_get_contents($url);
 		if ( $result === false ) {
 			log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
@@ -245,11 +245,11 @@ class ipx800_relaiCmd extends cmd
 		else
 			return false;
 			
-		$result = file_get_contents($url);
+		$result = @file_get_contents($url);
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 		$count = 0;
 		while ( $result === false && $count < 3 ) {
-			$result = file_get_contents($url);
+			$result = @file_get_contents($url);
 			$count++;
 		}
 		if ( $result === false ) {

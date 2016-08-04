@@ -469,11 +469,11 @@ class ipx800Cmd extends cmd
 		else
 			return false;
 		log::add('ipx800','debug','get '.preg_replace("/:[^:]*@/", ":XXXX@", $url).'?'.http_build_query($data));
-		$result = file_get_contents($url.'?'.http_build_query($data));
+		$result = @file_get_contents($url.'?'.http_build_query($data));
 		$count = 0;
 		while ( $result === false )
 		{
-			$result = file_get_contents($url.'?'.http_build_query($data));
+			$result = @file_get_contents($url.'?'.http_build_query($data));
 			if ( $count < 3 ) {
 				log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." ".$eqLogic->getName()." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url)."?".http_build_query($data));
 				throw new Exception(__('L\'ipx ne repond pas.',__FILE__)." ".$eqLogic->getName());
