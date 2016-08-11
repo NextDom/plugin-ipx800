@@ -34,6 +34,7 @@ class ipx800_relai extends eqLogic {
 			$state->setSubType('binary');
 			$state->setLogicalId('state');
 			$state->setEventOnly(1);
+			$state->setDisplay('generic_type','LIGHT_STATE');
 			$state->save();
 		}
         $btn_on = $this->getCmd(null, 'btn_on');
@@ -45,6 +46,7 @@ class ipx800_relai extends eqLogic {
 			$btn_on->setSubType('other');
 			$btn_on->setLogicalId('btn_on');
 			$btn_on->setEventOnly(1);
+			$btn_on->setDisplay('generic_type','LIGHT_ON');
 			$btn_on->save();
 		}
         $btn_off = $this->getCmd(null, 'btn_off');
@@ -56,6 +58,7 @@ class ipx800_relai extends eqLogic {
 			$btn_off->setSubType('other');
 			$btn_off->setLogicalId('btn_off');
 			$btn_off->setEventOnly(1);
+			$btn_off->setDisplay('generic_type','LIGHT_OFF');
 			$btn_off->save();
 		}
         $commute = $this->getCmd(null, 'commute');
@@ -67,6 +70,7 @@ class ipx800_relai extends eqLogic {
 			$commute->setSubType('other');
 			$commute->setLogicalId('commute');
 			$commute->setEventOnly(1);
+			$commute->setDisplay('generic_type','GENERIC_ACTION');
 			$commute->save();
 		}
         $impulsion = $this->getCmd(null, 'impulsion');
@@ -78,6 +82,7 @@ class ipx800_relai extends eqLogic {
 			$impulsion->setSubType('other');
 			$impulsion->setLogicalId('impulsion');
 			$impulsion->setEventOnly(1);
+			$impulsion->setDisplay('generic_type','GENERIC_ACTION');
 			$impulsion->save();
 		}
 	}
@@ -97,7 +102,16 @@ class ipx800_relai extends eqLogic {
 			$impulsion->setSubType('other');
 			$impulsion->setLogicalId('impulsion');
 			$impulsion->setEventOnly(1);
+			$impulsion->setDisplay('generic_type','GENERIC_ACTION');
 			$impulsion->save();
+		}
+		else
+		{
+			if ( $impulsion->getDisplay('generic_type') == "" )
+			{
+				$impulsion->setDisplay('generic_type','GENERIC_ACTION');
+				$impulsion->save();
+			}
 		}
         $state = $this->getCmd(null, 'etat');
         if ( is_object($state) ) {
@@ -115,8 +129,17 @@ class ipx800_relai extends eqLogic {
 			$state->setEventOnly(1);
 			$state->setIsHistorized($state_old->getIsHistorized());
 			$state->setIsVisible($state_old->getIsVisible());
+			$state->setDisplay('generic_type','LIGHT_STATE');
 			$state->save();
 			$state_old->remove();
+		}
+		elseif ( is_object($state_old) )
+		{
+			if ( $state_old->getDisplay('generic_type') == "" )
+			{
+				$state_old->setDisplay('generic_type','LIGHT_STATE');
+				$state_old->save();
+			}			
 		}
         $btn_on_old = $this->getCmd(null, 'btn_on');
         if ( is_object($btn_on_old) && get_class ($btn_on_old) != "ipx800_relaiCmd" ) {
@@ -129,8 +152,17 @@ class ipx800_relai extends eqLogic {
 			$btn_on->setEventOnly(1);
 			$btn_on->setIsHistorized($btn_on_old->getIsHistorized());
 			$btn_on->setIsVisible($btn_on_old->getIsVisible());
+			$btn_on->setDisplay('generic_type','LIGHT_ON');
 			$btn_on->save();
 			$btn_on_old->remove();
+		}
+ 		elseif ( is_object($btn_on_old) )
+		{
+			if ( $btn_on_old->getDisplay('generic_type') == "" )
+			{
+				$btn_on_old->setDisplay('generic_type','LIGHT_ON');
+				$btn_on_old->save();
+			}			
 		}
         $btn_off_old = $this->getCmd(null, 'btn_off');
         if ( is_object($btn_off_old) && get_class ($btn_off_old) != "ipx800_relaiCmd" ) {
@@ -143,8 +175,17 @@ class ipx800_relai extends eqLogic {
 			$btn_off->setEventOnly(1);
 			$btn_off->setIsHistorized($btn_off_old->getIsHistorized());
 			$btn_off->setIsVisible($btn_off_old->getIsVisible());
+			$btn_off->setDisplay('generic_type','LIGHT_OFF');
 			$btn_off->save();
 			$btn_off_old->remove();
+		}
+ 		elseif ( is_object($btn_off_old) )
+		{
+			if ( $btn_off_old->getDisplay('generic_type') == "" )
+			{
+				$btn_off_old->setDisplay('generic_type','LIGHT_OFF');
+				$btn_off_old->save();
+			}			
 		}
         $commute_old = $this->getCmd(null, 'commute');
         if ( is_object($commute_old) && get_class ($commute_old) != "ipx800_relaiCmd" ) {
@@ -157,8 +198,17 @@ class ipx800_relai extends eqLogic {
 			$commute->setEventOnly(1);
 			$commute->setIsHistorized($commute_old->getIsHistorized());
 			$commute->setIsVisible($commute_old->getIsVisible());
+			$commute->setDisplay('generic_type','GENERIC_ACTION');
 			$commute->save();
 			$commute_old->remove();
+		}
+ 		elseif ( is_object($commute_old) )
+		{
+			if ( $commute_old->getDisplay('generic_type') == "" )
+			{
+				$commute_old->setDisplay('generic_type','GENERIC_ACTION');
+				$commute_old->save();
+			}			
 		}
 	}
 

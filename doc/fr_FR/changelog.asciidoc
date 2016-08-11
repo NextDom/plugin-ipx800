@@ -1,4 +1,6 @@
 [horizontal]
+1.41:: Modification être compatible avec le plugin mobile
+
 1.40:: Mise a jour des entrées analogiques, même si la valeur ne change pas pour les graphiques.
 
 1.39:: Compatibilité Jeedom 2.0

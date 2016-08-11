@@ -34,6 +34,7 @@ class ipx800_compteur extends eqLogic {
 			$nbimpulsion->setSubType('numeric');
 			$nbimpulsion->setLogicalId('nbimpulsion');
 			$nbimpulsion->setEventOnly(1);
+			$nbimpulsion->setDisplay('generic_type','GENERIC_INFO');
 			$nbimpulsion->save();
 		}
         $nbimpulsionminute = $this->getCmd(null, 'nbimpulsionminute');
@@ -47,6 +48,7 @@ class ipx800_compteur extends eqLogic {
 			$nbimpulsionminute->setUnite("Imp/min");
 			$nbimpulsionminute->setEventOnly(1);
 			$nbimpulsionminute->setConfiguration('calcul', '#brut#');
+			$nbimpulsionminute->setDisplay('generic_type','GENERIC_INFO');
 			$nbimpulsionminute->save();
 		}
 	}
@@ -62,7 +64,16 @@ class ipx800_compteur extends eqLogic {
 			$nbimpulsion->setSubType('numeric');
 			$nbimpulsion->setLogicalId('nbimpulsion');
 			$nbimpulsion->setEventOnly(1);
+			$nbimpulsion->setDisplay('generic_type','GENERIC_INFO');
 			$nbimpulsion->save();
+		}
+		else
+		{
+			if ( $nbimpulsion->getDisplay('generic_type') == "" )
+			{
+				$nbimpulsion->setDisplay('generic_type','GENERIC_INFO');
+				$nbimpulsion->save();
+			}
 		}
         $nbimpulsionminute = $this->getCmd(null, 'nbimpulsionminute');
         if ( ! is_object($nbimpulsionminute) ) {
@@ -75,7 +86,16 @@ class ipx800_compteur extends eqLogic {
 			$nbimpulsionminute->setUnite("Imp/min");
 			$nbimpulsionminute->setConfiguration('calcul', '#brut#');
 			$nbimpulsionminute->setEventOnly(1);
+			$nbimpulsionminute->setDisplay('generic_type','GENERIC_INFO');
 			$nbimpulsionminute->save();
+		}
+		else
+		{
+			if ( $nbimpulsionminute->getDisplay('generic_type') == "" )
+			{
+				$nbimpulsionminute->setDisplay('generic_type','GENERIC_INFO');
+				$nbimpulsionminute->save();
+			}
 		}
 	}
 

@@ -34,6 +34,7 @@ class ipx800_bouton extends eqLogic {
 			$state->setSubType('binary');
 			$state->setLogicalId('state');
 			$state->setEventOnly(1);
+			$state->setDisplay('generic_type','LIGHT_STATE');
 			$state->save();
 		}
         $btn_on = $this->getCmd(null, 'btn_on');
@@ -46,6 +47,7 @@ class ipx800_bouton extends eqLogic {
 			$btn_on->setLogicalId('btn_on');
 			$btn_on->setEventOnly(1);
 			$btn_on->setIsVisible(0);
+			$btn_on->setDisplay('generic_type','LIGHT_ON');
 			$btn_on->save();
 		}
         $btn_off = $this->getCmd(null, 'btn_off');
@@ -58,6 +60,7 @@ class ipx800_bouton extends eqLogic {
 			$btn_off->setLogicalId('btn_off');
 			$btn_off->setEventOnly(1);
 			$btn_off->setIsVisible(0);
+			$btn_off->setDisplay('generic_type','LIGHT_OFF');
 			$btn_off->save();
 		}
 	}
@@ -73,6 +76,12 @@ class ipx800_bouton extends eqLogic {
 			$state->setLogicalId('state');
 			$state->save();
 		}
+        $state = $this->getCmd(null, 'state');
+		if ( $state->getDisplay('generic_type') == "" )
+		{
+			$state->setDisplay('generic_type','LIGHT_STATE');
+			$state->save();
+		}			
         $btn_on = $this->getCmd(null, 'btn_on');
         if ( ! is_object($btn_on) ) {
             $btn_on = new ipx800_boutonCmd();
@@ -85,6 +94,14 @@ class ipx800_bouton extends eqLogic {
 			$btn_on->setIsVisible(0);
 			$btn_on->save();
 		}
+ 		else
+		{
+			if ( $btn_on->getDisplay('generic_type') == "" )
+			{
+				$btn_on->setDisplay('generic_type','LIGHT_ON');
+				$btn_on->save();
+			}			
+		}
         $btn_off = $this->getCmd(null, 'btn_off');
         if ( ! is_object($btn_off) ) {
             $btn_off = new ipx800_boutonCmd();
@@ -96,6 +113,14 @@ class ipx800_bouton extends eqLogic {
 			$btn_off->setEventOnly(1);
 			$btn_off->setIsVisible(0);
 			$btn_off->save();
+		}
+ 		else
+		{
+			if ( $btn_off->getDisplay('generic_type') == "" )
+			{
+				$btn_off->setDisplay('generic_type','LIGHT_OFF');
+				$btn_off->save();
+			}			
 		}
 	}
 

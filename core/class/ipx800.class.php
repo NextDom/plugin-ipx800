@@ -56,7 +56,7 @@ class ipx800 extends eqLogic {
 		if ( $this->getIsEnable() )
 		{
 			log::add('ipx800','debug','get '.preg_replace("/:[^:]*@/", ":XXXX@", $this->getUrl()). 'status.xml');
-			$this->xmlstatus = simplexml_load_file($this->getUrl(). 'status.xml');
+			$this->xmlstatus = @simplexml_load_file($this->getUrl(). 'status.xml');
 			if ( $this->xmlstatus === false )
 				throw new Exception(__('L\'ipx800 ne repond pas.',__FILE__));
 		}
@@ -80,6 +80,7 @@ class ipx800 extends eqLogic {
 			$ipx800Cmd->setSubType('string');
 			$ipx800Cmd->setIsHistorized(0);
 			$ipx800Cmd->setEventOnly(1);
+			$ipx800Cmd->setDisplay('generic_type','GENERIC_INFO');
 			$ipx800Cmd->save();		
 		}
 
@@ -93,6 +94,7 @@ class ipx800 extends eqLogic {
 			$cmd->setLogicalId('status');
 			$cmd->setIsVisible(1);
 			$cmd->setEventOnly(1);
+			$cmd->setDisplay('generic_type','GENERIC_INFO');
 			$cmd->save();
 		}
         $all_on = $this->getCmd(null, 'all_on');
@@ -104,6 +106,7 @@ class ipx800 extends eqLogic {
 			$all_on->setSubType('other');
 			$all_on->setLogicalId('all_on');
 			$all_on->setEventOnly(1);
+			$all_on->setDisplay('generic_type','GENERIC_ACTION');
 			$all_on->save();
 		}
         $all_off = $this->getCmd(null, 'all_off');
@@ -115,6 +118,7 @@ class ipx800 extends eqLogic {
 			$all_off->setSubType('other');
 			$all_off->setLogicalId('all_off');
 			$all_off->setEventOnly(1);
+			$all_off->setDisplay('generic_type','GENERIC_ACTION');
 			$all_off->save();
 		}
         $reboot = $this->getCmd(null, 'reboot');
@@ -127,6 +131,7 @@ class ipx800 extends eqLogic {
 			$reboot->setLogicalId('reboot');
 			$reboot->setEventOnly(1);
 			$reboot->setIsVisible(0);
+			$reboot->setDisplay('generic_type','GENERIC_ACTION');
 			$reboot->save();
 		}
 		for ($compteurId = 0; $compteurId <= 15; $compteurId++) {
@@ -216,7 +221,16 @@ class ipx800 extends eqLogic {
 			$cmd->setLogicalId('status');
 			$cmd->setIsVisible(1);
 			$cmd->setEventOnly(1);
+			$cmd->setDisplay('generic_type','GENERIC_INFO');
 			$cmd->save();
+		}
+		else
+		{
+			if ( $cmd->getDisplay('generic_type') == "" )
+			{
+				$cmd->setDisplay('generic_type','GENERIC_INFO');
+				$cmd->save();
+			}
 		}
         $reboot = $this->getCmd(null, 'reboot');
         if ( ! is_object($reboot) ) {
@@ -228,8 +242,18 @@ class ipx800 extends eqLogic {
 			$reboot->setLogicalId('reboot');
 			$reboot->setIsVisible(0);
 			$reboot->setEventOnly(1);
+			$reboot->setDisplay('generic_type','GENERIC_ACTION');
 			$reboot->save();
 		}
+		else
+		{
+			if ( $reboot->getDisplay('generic_type') == "" )
+			{
+				$reboot->setDisplay('generic_type','GENERIC_ACTION');
+				$reboot->save();
+			}
+		}
+
 		$ipx800Cmd = $this->getCmd(null, 'updatetime');
 		if ( ! is_object($ipx800Cmd)) {
 			$ipx800Cmd = new ipx800Cmd();
@@ -243,7 +267,58 @@ class ipx800 extends eqLogic {
 			$ipx800Cmd->setEventOnly(1);
 			$ipx800Cmd->save();		
 		}
+		else
+		{
+			if ( $ipx800Cmd->getDisplay('generic_type') == "" )
+			{
+				$ipx800Cmd->setDisplay('generic_type','GENERIC_INFO');
+				$ipx800Cmd->save();
+			}
+		}
 
+		$all_on = $this->getCmd(null, 'all_on');
+		if ( is_object($ipx800Cmd)) {
+			if ( $all_on->getDisplay('generic_type') == "" )
+			{
+				$all_on->setDisplay('generic_type','GENERIC_ACTION');
+				$all_on->save();
+			}
+		}
+
+		$all_off = $this->getCmd(null, 'all_off');
+		if ( is_object($all_off)) {
+			if ( $all_off->getDisplay('generic_type') == "" )
+			{
+				$all_off->setDisplay('generic_type','GENERIC_ACTION');
+				$all_off->save();
+			}
+		}
+	}
+
+	public function getChildEq()
+	{
+		$ChildList = array();
+		foreach (self::byType('ipx800_compteur') as $eqLogic) {
+			if ( substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")) == $this->getId() ) {
+				array_push($ChildList, $eqLogic->getId());
+			}
+		}
+		foreach (self::byType('ipx800_analogique') as $eqLogic) {
+			if ( substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")) == $this->getId() ) {
+				array_push($ChildList, $eqLogic->getId());
+			}
+		}
+		foreach (self::byType('ipx800_relai') as $eqLogic) {
+			if ( substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")) == $this->getId() ) {
+				array_push($ChildList, $eqLogic->getId());
+			}
+		}
+		foreach (self::byType('ipx800_bouton') as $eqLogic) {
+			if ( substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")) == $this->getId() ) {
+				array_push($ChildList, $eqLogic->getId());
+			}
+		}
+		return $ChildList;
 	}
 
 	public function preRemove()

@@ -54,16 +54,24 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			break;
 		case 'SHT-X3HC':
 			formule = '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / 1.0546 / ( 1.0546 - ( 0.00216 * #temp# ) )';
-			formule = '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / (1.0546 - (0.00216 * #temp#))';
+			formule = '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / ( 1.0546 - ( 0.00216 * #temp# ) )';
 			unite = '% RH';
 			alert('Remplacer #temp# par la température réél.');
+			break;
+		case 'Autre':
+			formule = '';
 			break;
 		default:
 			formule = '#brut#';
 			unite = '';
+			break;
 	}
-	$('.cmdAttr[data-l2key=calcul]').val(formule);
-	$('.cmdAttr[data-l1key=unite]').val(unite);
+	$('.cmdAttr[data-l2key=type]').val($(this).find('option').filter(":selected").value());
+	if ( formule != '' )
+	{
+		$('.cmdAttr[data-l2key=calcul]').val(formule);
+		$('.cmdAttr[data-l1key=unite]').val(unite);
+	}
 });
 
 function addCmdToTable(_cmd) {
@@ -95,6 +103,7 @@ function addCmdToTable(_cmd) {
         if (init(_cmd.logicalId) == 'reel') {
 			tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="calcul" style="height : 33px;" placeholder="{{Calcul}}"></textarea>';
 			tr += '<a class="btn btn-default cursor listEquipementInfo" data-input="calcul" style="margin-top : 5px;"><i class="fa fa-list-alt "></i> {{Rechercher équipement}}</a>';
+			tr += '<input class="cmdAttr form-control type input-sm" type="hidden" data-l1key="configuration" value="" data-l1key="configuration" data-l2key="type"/>';
 			tr += '<select class="cmdAttr form-control tooltips input-sm choixFormule" style="margin-top : 5px;" title="{{Formule standard}}">';
 			tr += '<option value=""></option>';
 			tr += '<option value="LM35Z">Sonde LM35Z</option>';
@@ -109,6 +118,7 @@ function addCmdToTable(_cmd) {
 			tr += '<option value="CT20A">X400 CT20A</option>';
 			tr += '<option value="CT50A">X400 CT50A</option>';
 			tr += '<option value="Ph">X200 pH Probe</option>';
+			tr += '<option value="Autre">Autre</option>';
 			tr += '</select>';
 		}
         tr += '</td>';

@@ -42,7 +42,16 @@ class ipx800_analogique extends eqLogic {
 			$brut->setLogicalId('brut');
 			$brut->setIsVisible(false);
 			$brut->setEventOnly(1);
+			$brut->setDisplay('generic_type','GENERIC_INFO');
 			$brut->save();
+		}
+		else
+		{
+			if ( $brut->getDisplay('generic_type') == "" )
+			{
+				$brut->setDisplay('generic_type','GENERIC_INFO');
+				$brut->save();
+			}
 		}
         $reel = $this->getCmd(null, 'reel');
         if ( ! is_object($reel) ) {
@@ -54,6 +63,93 @@ class ipx800_analogique extends eqLogic {
 			$reel->setLogicalId('reel');
 			$reel->setEventOnly(1);
 			$reel->setConfiguration('calcul', '#' . $brut->getId() . '#');
+			$reel->setDisplay('generic_type','GENERIC_INFO');
+			$reel->save();
+		}
+		else
+		{
+			if ( $reel->getConfiguration('type') == "" )
+			{
+				switch ($reel->getConfiguration('calcul')) {
+					case '#brut# * 0.323':
+						$reel->setConfiguration('type', 'LM35Z');
+						break;
+					case '#brut# * 0.323 - 50':
+						$reel->setConfiguration('type', 'T4012');
+						break;
+					case '#brut# * 0.00323':
+						$reel->setConfiguration('type', 'Voltage');
+						break;
+					case '#brut# * 0.09775':
+						$reel->setConfiguration('type', 'SHT-X3L');
+						break;
+					case '( #brut# * 0.00323 - 1.63 ) / 0.0326':
+						$reel->setConfiguration('type', 'SHT-X3T');
+						break;
+					case '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / 1.0546':
+						$reel->setConfiguration('type', 'SHT-X3H');
+						break;
+					case '( ( #brut# * 0.00323 ) - 0.25 ) / 0.028':
+						$reel->setConfiguration('type', 'TC100');
+						break;
+					case '#brut# * 0.00646':
+						$reel->setConfiguration('type', 'CT20A');
+						break;
+					case '#brut# * 0.01615':
+						$reel->setConfiguration('type', 'CT50A');
+						break;
+					case '#brut# / 100':
+						$reel->setConfiguration('type', 'Ph');
+						break;
+					default:
+						if ( preg_match('!\( \( #brut# \* 0.00323 / 3.3 \) - 0.1515 \) / 0.00636 / \( 1.0546 - \( 0.00216 \* .* \) \)!', $reel->getConfiguration('calcul')) )
+							$reel->setConfiguration('type', 'SHT-X3HC');
+						else
+							$reel->setConfiguration('type', 'Autre');
+						break;
+				}
+			}
+			switch ($reel->getConfiguration('type')) {
+				case 'LM35Z':
+					$reel->setDisplay('generic_type','TEMPERATURE');
+					break;
+				case 'T4012':
+					$reel->setDisplay('generic_type','TEMPERATURE');
+					break;
+				case 'Voltage':
+					$reel->setDisplay('generic_type','VOLTAGE');
+					break;
+				case 'SHT-X3L':
+					$reel->setDisplay('generic_type','BRIGHTNESS');
+					break;
+				case 'SHT-X3T':
+					$reel->setDisplay('generic_type','TEMPERATURE');
+					break;
+				case 'SHT-X3H':
+					$reel->setDisplay('generic_type','HUMIDITY');
+					break;
+				case 'TC100':
+					$reel->setDisplay('generic_type','TEMPERATURE');
+					break;
+				case 'X400 CT10A':
+					$reel->setDisplay('generic_type','CONSUMPTION');
+					break;
+				case 'CT20A':
+					$reel->setDisplay('generic_type','CONSUMPTION');
+					break;
+				case 'CT50A':
+					$reel->setDisplay('generic_type','CONSUMPTION');
+					break;
+				case 'Ph':
+					$reel->setDisplay('generic_type','GENERIC_INFO');
+					break;
+				case 'SHT-X3HC':
+					$reel->setDisplay('generic_type','HUMIDITY');
+					break;
+				default:
+					$reel->setDisplay('generic_type','GENERIC_INFO');
+					break;
+			}
 			$reel->save();
 		}
 	}
@@ -70,6 +166,7 @@ class ipx800_analogique extends eqLogic {
 			$brut->setLogicalId('brut');
 			$brut->setIsVisible(false);
 			$brut->setEventOnly(1);
+			$brut->setDisplay('generic_type','GENERIC_INFO');
 			$brut->save();
 		}
         $reel = $this->getCmd(null, 'reel');
@@ -82,6 +179,7 @@ class ipx800_analogique extends eqLogic {
 			$reel->setLogicalId('reel');
 			$reel->setEventOnly(1);
 			$reel->setConfiguration('calcul', '#' . $brut->getId() . '#');
+			$reel->setDisplay('generic_type','GENERIC_INFO');
 			$reel->save();
 		}
 	}
