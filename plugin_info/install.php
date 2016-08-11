@@ -29,13 +29,13 @@ function ipx800_install() {
         $cron->setSchedule('* * * * *');
         $cron->save();
 	}
-	config::remove('subClass', 'ipx800');
-	config::save('listChildren', 'ipx800_bouton;ipx800_analogique;ipx800_relai;ipx800_compteur', 'ipx800');
+	config::remove('listChildren', 'ipx800');
+	config::save('subClass', 'ipx800_bouton;ipx800_analogique;ipx800_relai;ipx800_compteur', 'ipx800');
 }
 
 function ipx800_update() {
-	config::remove('subClass', 'ipx800');
-	config::save('listChildren', 'ipx800_bouton;ipx800_analogique;ipx800_relai;ipx800_compteur', 'ipx800');
+	config::remove('listChildren', 'ipx800');
+	config::save('subClass', 'ipx800_bouton;ipx800_analogique;ipx800_relai;ipx800_compteur', 'ipx800');
     $cron = cron::byClassAndFunction('ipx800', 'pull');
 	if ( ! is_object($cron)) {
         $cron = new cron();
@@ -79,7 +79,7 @@ function ipx800_remove() {
 		$cron->stop();
         $cron->remove();
     }
-	config::remove('subClass', 'ipx800');
 	config::remove('listChildren', 'ipx800');
+	config::remove('subClass', 'ipx800');
 }
 ?>
