@@ -35,6 +35,8 @@ class ipx800_relai extends eqLogic {
 			$state->setLogicalId('state');
 			$state->setEventOnly(1);
 			$state->setDisplay('generic_type','LIGHT_STATE');
+			$state->setTemplate('dashboard', 'light');
+			$state->setTemplate('mobile', 'light');      
 			$state->save();
 		}
         $btn_on = $this->getCmd(null, 'btn_on');
@@ -87,7 +89,7 @@ class ipx800_relai extends eqLogic {
 		}
 	}
 
-	public function postUpdate()
+	public function preUpdate()
 	{
         $switch = $this->getCmd(null, 'switch');
         if ( is_object($switch) ) {
@@ -130,6 +132,8 @@ class ipx800_relai extends eqLogic {
 			$state->setIsHistorized($state_old->getIsHistorized());
 			$state->setIsVisible($state_old->getIsVisible());
 			$state->setDisplay('generic_type','LIGHT_STATE');
+			$state->setTemplate('dashboard', 'light');
+			$state->setTemplate('mobile', 'light');      
 			$state->save();
 			$state_old->remove();
 		}
@@ -138,6 +142,16 @@ class ipx800_relai extends eqLogic {
 			if ( $state_old->getDisplay('generic_type') == "" )
 			{
 				$state_old->setDisplay('generic_type','LIGHT_STATE');
+				$state_old->save();
+			}			
+			if ( $state_old->getTemplate('dashboard') == "" )
+			{
+				$state_old->setTemplate('dashboard', 'light');
+				$state_old->save();
+			}			
+			if ( $state_old->getTemplate('mobile') == "" )
+			{
+				$state_old->setTemplate('mobile', 'light');
 				$state_old->save();
 			}			
 		}
@@ -198,7 +212,7 @@ class ipx800_relai extends eqLogic {
 			$commute->setEventOnly(1);
 			$commute->setIsHistorized($commute_old->getIsHistorized());
 			$commute->setIsVisible($commute_old->getIsVisible());
-			$commute->setDisplay('generic_type','GENERIC_ACTION');
+			$commute->setDisplay('generic_type','LIGHT_TOGGL');
 			$commute->save();
 			$commute_old->remove();
 		}
@@ -206,7 +220,7 @@ class ipx800_relai extends eqLogic {
 		{
 			if ( $commute_old->getDisplay('generic_type') == "" )
 			{
-				$commute_old->setDisplay('generic_type','GENERIC_ACTION');
+				$commute_old->setDisplay('generic_type','LIGHT_TOGGL');
 				$commute_old->save();
 			}			
 		}
@@ -226,7 +240,7 @@ class ipx800_relai extends eqLogic {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
 		log::add('ipx800','debug',"Receive push notification for ".$cmd->getName()." (". init('id').") : value = ".init('state'));
-		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('value'))) {
+		if ($cmd->execCmd() != $cmd->formatValue(init('value'))) {
 			$cmd->setCollectDate('');
 			$cmd->event(init('value'));
 		}

@@ -23,7 +23,7 @@ class ipx800_analogique extends eqLogic {
     /*     * *************************Attributs****************************** */
 
     /*     * ***********************Methode static*************************** */
-	public function postUpdate()
+	public function preUpdate()
 	{
         $brut = $this->getCmd(null, 'voltage');
         if ( is_object($brut) ) {
@@ -123,12 +123,16 @@ class ipx800_analogique extends eqLogic {
 					$reel->setDisplay('generic_type','BRIGHTNESS');
 					break;
 				case 'SHT-X3T':
+					$reel->setTemplate('dashboard', 'thermometre');
+					$reel->setTemplate('mobile', 'thermometre');
 					$reel->setDisplay('generic_type','TEMPERATURE');
 					break;
 				case 'SHT-X3H':
 					$reel->setDisplay('generic_type','HUMIDITY');
 					break;
 				case 'TC100':
+					$reel->setTemplate('dashboard', 'thermometre');
+					$reel->setTemplate('mobile', 'thermometre');
 					$reel->setDisplay('generic_type','TEMPERATURE');
 					break;
 				case 'X400 CT10A':
@@ -197,7 +201,7 @@ class ipx800_analogique extends eqLogic {
         if (!is_object($cmd)) {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
-		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('voltage'))) {
+		if ($cmd->execCmd() != $cmd->formatValue(init('voltage'))) {
 			$cmd->setCollectDate('');
 			$cmd->event(init('voltage'));
 		}

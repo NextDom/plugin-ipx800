@@ -51,17 +51,6 @@ class ipx800 extends eqLogic {
 		return $url."/";
 	}
 
-	public function preUpdate()
-	{
-		if ( $this->getIsEnable() )
-		{
-			log::add('ipx800','debug','get '.preg_replace("/:[^:]*@/", ":XXXX@", $this->getUrl()). 'status.xml');
-			$this->xmlstatus = @simplexml_load_file($this->getUrl(). 'status.xml');
-			if ( $this->xmlstatus === false )
-				throw new Exception(__('L\'ipx800 ne repond pas.',__FILE__));
-		}
-	}
-
 	public function preInsert()
 	{
 		$this->setIsVisible(0);
@@ -172,6 +161,17 @@ class ipx800 extends eqLogic {
 		}
 	}
 
+	public function preUpdate()
+	{
+		if ( $this->getIsEnable() )
+		{
+			log::add('ipx800','debug','get '.preg_replace("/:[^:]*@/", ":XXXX@", $this->getUrl()). 'status.xml');
+			$this->xmlstatus = @@simplexml_load_file($this->getUrl(). 'status.xml');
+			if ( $this->xmlstatus === false )
+				throw new Exception(__('L\'ipx800 ne repond pas.',__FILE__));
+		}
+	}
+
 	public function postUpdate()
 	{
 		for ($compteurId = 0; $compteurId <= 15; $compteurId++) {
@@ -277,7 +277,7 @@ class ipx800 extends eqLogic {
 		}
 
 		$all_on = $this->getCmd(null, 'all_on');
-		if ( is_object($ipx800Cmd)) {
+		if ( is_object($all_on)) {
 			if ( $all_on->getDisplay('generic_type') == "" )
 			{
 				$all_on->setDisplay('generic_type','GENERIC_ACTION');
@@ -389,11 +389,11 @@ class ipx800 extends eqLogic {
 			$statuscmd = $this->getCmd(null, 'status');
 			$url = $this->getUrl();
 			log::add('ipx800','debug','get '.preg_replace("/:[^:]*@/", ":XXXX@", $url).'globalstatus.xml');
-			$this->xmlstatus = simplexml_load_file($url. 'globalstatus.xml');
+			$this->xmlstatus = @simplexml_load_file($url. 'globalstatus.xml');
 			$count = 0;
 			while ( $this->xmlstatus === false && $count < 3 ) {
 				log::add('ipx800','debug','reget '.preg_replace("/:[^:]*@/", ":XXXX@", $url).'globalstatus.xml');
-				$this->xmlstatus = simplexml_load_file($url. 'globalstatus.xml');
+				$this->xmlstatus = @simplexml_load_file($url. 'globalstatus.xml');
 				$count++;
 			}
 			if ( $this->xmlstatus === false ) {
@@ -401,7 +401,7 @@ class ipx800 extends eqLogic {
 					$statuscmd->setCollectDate('');
 					$statuscmd->event(0);
 				}
-				log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." ".$eqLogic->getName()." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url). 'globalstatus.xml');
+				log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." ".$this->getName()." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url). 'globalstatus.xml');
 				return false;
 			}
 			if ($statuscmd->execCmd() != 1) {
@@ -419,7 +419,7 @@ class ipx800 extends eqLogic {
 					if ( count($status) != 0 )
 					{
 						$eqLogic_cmd = $eqLogicRelai->getCmd(null, 'state');
-						if ($eqLogic_cmd->execCmd(null, 2) != $eqLogic_cmd->formatValue($status[0])) {
+						if ($eqLogic_cmd->execCmd() != $eqLogic_cmd->formatValue($status[0])) {
 							log::add('ipx800','debug',"Change state off ".$eqLogicRelai->getName());
 							$eqLogic_cmd->setCollectDate('');
 							$eqLogic_cmd->event($status[0]);
@@ -436,7 +436,7 @@ class ipx800 extends eqLogic {
 					if ( count($status) != 0 )
 					{
 						$eqLogic_cmd = $eqLogicBouton->getCmd(null, 'state');
-						if ($eqLogic_cmd->execCmd(null, 2) != $eqLogic_cmd->formatValue($status[0])) {
+						if ($eqLogic_cmd->execCmd() != $eqLogic_cmd->formatValue($status[0])) {
 							log::add('ipx800','debug',"Change state off ".$eqLogicBouton->getName());
 							$eqLogic_cmd->setCollectDate('');
 							$eqLogic_cmd->event($status[0]);
@@ -453,7 +453,7 @@ class ipx800 extends eqLogic {
 					if ( count($status) != 0 )
 					{
 						$eqLogic_cmd = $eqLogicAnalogique->getCmd(null, 'brut');
-						if ($eqLogic_cmd->execCmd(null, 2) != $eqLogic_cmd->formatValue($status[0])) {
+						if ($eqLogic_cmd->execCmd() != $eqLogic_cmd->formatValue($status[0])) {
 							log::add('ipx800','debug',"Change brut off ".$eqLogicAnalogique->getName());
 						}
 						$eqLogic_cmd->setCollectDate('');
@@ -472,7 +472,7 @@ class ipx800 extends eqLogic {
 					if ( count($status) != 0 )
 					{
 						$nbimpulsion_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsion');
-						$nbimpulsion = $nbimpulsion_cmd->execCmd(null, 2);
+						$nbimpulsion = $nbimpulsion_cmd->execCmd();
 						$nbimpulsionminute_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsionminute');
 						if ( $nbimpulsion != $status[0] ) {
 							log::add('ipx800','debug',"Change nbimpulsion off ".$eqLogicCompteur->getName());

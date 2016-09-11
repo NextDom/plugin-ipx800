@@ -6,6 +6,10 @@ $("#table_cmd_ipx800_analogique").delegate(".listEquipementInfo", 'click', funct
     });
 });
 
+$("#table_cmd_ipx800_analogique").delegate(".Formule", 'change', function () {
+	$('.choixFormule option[value=""]').prop('selected', true);
+});
+
 $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function () {
 	switch($(this).find('option').filter(":selected").value()) {
 		case 'LM35Z':
@@ -101,10 +105,9 @@ function addCmdToTable(_cmd) {
 			tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="calcul" style="height : 33px;" placeholder="{{Calcul}}"></textarea> (utiliser #brut# dans la formule)';
 		}
         if (init(_cmd.logicalId) == 'reel') {
-			tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="calcul" style="height : 33px;" placeholder="{{Calcul}}"></textarea>';
+			tr += '<textarea class="cmdAttr form-control input-sm Formule" data-l1key="configuration" data-l2key="calcul" style="height : 33px;" placeholder="{{Calcul}}"></textarea>';
 			tr += '<a class="btn btn-default cursor listEquipementInfo" data-input="calcul" style="margin-top : 5px;"><i class="fa fa-list-alt "></i> {{Rechercher équipement}}</a>';
-			tr += '<input class="cmdAttr form-control type input-sm" type="hidden" data-l1key="configuration" value="" data-l1key="configuration" data-l2key="type"/>';
-			tr += '<select class="cmdAttr form-control tooltips input-sm choixFormule" style="margin-top : 5px;" title="{{Formule standard}}">';
+			tr += '<select class="cmdAttr form-control tooltips input-sm choixFormule" style="margin-top : 5px;" title="{{Formule standard}}" data-l1key="configuration" data-l2key="type">';
 			tr += '<option value=""></option>';
 			tr += '<option value="LM35Z">Sonde LM35Z</option>';
 			tr += '<option value="T4012">Sonde T4012</option>';

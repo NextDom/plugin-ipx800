@@ -53,7 +53,7 @@ class ipx800_compteur extends eqLogic {
 		}
 	}
 
-	public function postUpdate()
+	public function preUpdate()
 	{
         $nbimpulsion = $this->getCmd(null, 'nbimpulsion');
         if ( ! is_object($nbimpulsion) ) {
@@ -112,7 +112,7 @@ class ipx800_compteur extends eqLogic {
         if (!is_object($cmd)) {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
-		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('nbimpulsion'))) {
+		if ($cmd->execCmd() != $cmd->formatValue(init('nbimpulsion'))) {
 			$cmd->setCollectDate('');
 			$cmd->event(init('nbimpulsion'));
 		}

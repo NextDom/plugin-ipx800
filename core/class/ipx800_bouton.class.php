@@ -65,7 +65,7 @@ class ipx800_bouton extends eqLogic {
 		}
 	}
 
-	public function postUpdate()
+	public function preUpdate()
 	{
         $nbimpulsion = $this->getCmd(null, 'nbimpulsion');
         if ( is_object($nbimpulsion) ) {
@@ -82,6 +82,16 @@ class ipx800_bouton extends eqLogic {
 			$state->setDisplay('generic_type','LIGHT_STATE');
 			$state->save();
 		}			
+		if ( $state->getTemplate('dashboard') == "" )
+		{
+			$state->setTemplate('dashboard', 'light');
+			$state->save();
+		}			
+		if ( $state->getTemplate('mobile') == "" )
+		{
+			$state->setTemplate('mobile', 'light');
+			$state->save();
+		}			
         $btn_on = $this->getCmd(null, 'btn_on');
         if ( ! is_object($btn_on) ) {
             $btn_on = new ipx800_boutonCmd();
@@ -92,6 +102,7 @@ class ipx800_bouton extends eqLogic {
 			$btn_on->setLogicalId('btn_on');
 			$btn_on->setEventOnly(1);
 			$btn_on->setIsVisible(0);
+			$btn_on->setDisplay('generic_type','LIGHT_ON');
 			$btn_on->save();
 		}
  		else
@@ -138,7 +149,7 @@ class ipx800_bouton extends eqLogic {
             throw new Exception('Commande ID virtuel inconnu : ' . init('id'));
         }
 		log::add('ipx800','debug',"Receive push notification for ".$cmd->getName()." (". init('id').") : value = ".init('state'));
-		if ($cmd->execCmd(null, 2) != $cmd->formatValue(init('state'))) {
+		if ($cmd->execCmd() != $cmd->formatValue(init('state'))) {
 			$cmd->setCollectDate('');
 			$cmd->event(init('state'));
 		}
