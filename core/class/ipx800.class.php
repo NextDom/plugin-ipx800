@@ -166,7 +166,7 @@ class ipx800 extends eqLogic {
 		if ( $this->getIsEnable() )
 		{
 			log::add('ipx800','debug','get '.preg_replace("/:[^:]*@/", ":XXXX@", $this->getUrl()). 'status.xml');
-			$this->xmlstatus = @@simplexml_load_file($this->getUrl(). 'status.xml');
+			$this->xmlstatus = @simplexml_load_file($this->getUrl(). 'status.xml');
 			if ( $this->xmlstatus === false )
 				throw new Exception(__('L\'ipx800 ne repond pas.',__FILE__));
 		}
@@ -550,8 +550,8 @@ class ipx800Cmd extends cmd
 		{
 			$result = @file_get_contents($url.'?'.http_build_query($data));
 			if ( $count < 3 ) {
-				log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." ".$eqLogic->getName()." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url)."?".http_build_query($data));
-				throw new Exception(__('L\'ipx ne repond pas.',__FILE__)." ".$eqLogic->getName());
+				log::add('ipx800','error',__('L\'ipx ne repond pas.',__FILE__)." ".$this->getName()." get ".preg_replace("/:[^:]*@/", ":XXXX@", $url)."?".http_build_query($data));
+				throw new Exception(__('L\'ipx ne repond pas.',__FILE__)." ".$this->getName());
 			}
 			$count ++;
 		}

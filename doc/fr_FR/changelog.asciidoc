@@ -4,6 +4,8 @@
 Trappe certains messages d'erreur.
 +
 Ajout du type LIGHT_TOGGL pour les relais.
++
+Définition template des relais boutons.
 
 1.41:: Modification être compatible avec le plugin mobile.
 

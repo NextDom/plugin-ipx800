@@ -35,6 +35,8 @@ class ipx800_bouton extends eqLogic {
 			$state->setLogicalId('state');
 			$state->setEventOnly(1);
 			$state->setDisplay('generic_type','LIGHT_STATE');
+			$state->setTemplate('dashboard', 'light');
+			$state->setTemplate('mobile', 'light');
 			$state->save();
 		}
         $btn_on = $this->getCmd(null, 'btn_on');

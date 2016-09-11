@@ -72,7 +72,7 @@ class ipx800_relai extends eqLogic {
 			$commute->setSubType('other');
 			$commute->setLogicalId('commute');
 			$commute->setEventOnly(1);
-			$commute->setDisplay('generic_type','GENERIC_ACTION');
+			$commute->setDisplay('generic_type','LIGHT_TOGGL');
 			$commute->save();
 		}
         $impulsion = $this->getCmd(null, 'impulsion');
