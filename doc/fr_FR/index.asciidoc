@@ -59,7 +59,7 @@ Les commandes sont considérées comme des lumières.
 
 Les commandes sont considérées comme des types génériques.
 
-Il faut noter que l'on retrouvera dans l'application les commandes à partir du moment où elles sont paramétrées, même si elles ne sont pas marquées comme visible. Pour les masquer, il faut choisir dasn "Configuration commande" => "Type générique" => "Ne pas tenir compte de cette commande".
+Il faut noter que l'on retrouvera dans l'application les commandes à partir du moment où elles sont paramétrées, même si elles ne sont pas marquées comme visible. Pour les masquer, il faut choisir dans "Configuration commande" => "Type générique" => "Ne pas tenir compte de cette commande".
 
 == Quelques copies d'écran ==
 image::../images/ipx800_screenshot1.jpg[align="center"]
