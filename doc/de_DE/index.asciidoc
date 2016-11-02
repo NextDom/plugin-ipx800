@@ -1,4 +1,4 @@
-== Présentation ==
+== Präsentation ==
 Ce plugin permet de gérer les cartes IPX800 de GCE.
 
 Initialement, ce plugin a été créé pour connecter les IPX800 de GCE.
@@ -9,7 +9,7 @@ Initialement, ce plugin a été créé pour connecter les IPX800 de GCE.
 * ''les relais''
 * ''les compteurs d'impulsions''
 
-== Installation/Paramétrage ==
+== Installation/Einrichtung ==
 Nous allons maintenant paramétrer un équipement. Pour se faire, cliquer sur ''Plugins / Protocole domotique / IPX800''
 
 Puis cliquer sur le bouton en haut à gauche ''Ajouter un équipement''
@@ -27,7 +27,7 @@ Puis définir :
 * ''Compte''
 * ''Mot de passe''
 
-=== Fréquence de rafraichissement ===
+=== Aktualisierungsrate  ===
 Pour les entrées analogiques et les compteurs, les données sont récupérées par le plugin toutes les minutes. Il n'est pas possible d'avoir une fréquence plus élevée.
 Pour le reste, si le mode push est activé, le rafraichissement est quasi instantané.
 
@@ -69,5 +69,5 @@ image::../images/ipx800_screenshot3.jpg[align="center"]
 == FAQ ==
 include::faq.asciidoc[]
 
-== Change log ==
+== Fehlersuche ==
 include::changelog.asciidoc[]
