@@ -277,7 +277,19 @@ class ipx800 extends eqLogic {
 		}
 
 		$all_on = $this->getCmd(null, 'all_on');
-		if ( is_object($all_on)) {
+		if ( ! is_object($all_on)) {
+            $all_on = new ipx800Cmd();
+			$all_on->setName('All On');
+			$all_on->setEqLogic_id($this->getId());
+			$all_on->setType('action');
+			$all_on->setSubType('other');
+			$all_on->setLogicalId('all_on');
+			$all_on->setEventOnly(1);
+			$all_on->setDisplay('generic_type','GENERIC_ACTION');
+			$all_on->save();
+		}
+		else
+		{
 			if ( $all_on->getDisplay('generic_type') == "" )
 			{
 				$all_on->setDisplay('generic_type','GENERIC_ACTION');
@@ -286,7 +298,19 @@ class ipx800 extends eqLogic {
 		}
 
 		$all_off = $this->getCmd(null, 'all_off');
-		if ( is_object($all_off)) {
+		if ( ! is_object($all_off)) {
+            $all_off = new ipx800Cmd();
+			$all_off->setName('All Off');
+			$all_off->setEqLogic_id($this->getId());
+			$all_off->setType('action');
+			$all_off->setSubType('other');
+			$all_off->setLogicalId('all_off');
+			$all_off->setEventOnly(1);
+			$all_off->setDisplay('generic_type','GENERIC_ACTION');
+			$all_off->save();
+		}
+		else
+		{
 			if ( $all_off->getDisplay('generic_type') == "" )
 			{
 				$all_off->setDisplay('generic_type','GENERIC_ACTION');

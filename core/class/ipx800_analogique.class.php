@@ -135,7 +135,7 @@ class ipx800_analogique extends eqLogic {
 					$reel->setTemplate('mobile', 'thermometre');
 					$reel->setDisplay('generic_type','TEMPERATURE');
 					break;
-				case 'X400 CT10A':
+				case 'CT10A':
 					$reel->setDisplay('generic_type','CONSUMPTION');
 					break;
 				case 'CT20A':

@@ -40,7 +40,7 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			formule = '( ( #brut# * 0.00323 ) - 0.25 ) / 0.028';
 			unite = '°C';
 			break;
-		case 'X400 CT10A':
+		case 'CT10A':
 			formule = '#brut# * 0.00323';
 			unite = 'A';
 			break;
@@ -63,7 +63,6 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			alert('Remplacer #temp# par la température réél.');
 			break;
 		case 'Autre':
-			formule = '';
 			break;
 		default:
 			formule = '#brut#';
