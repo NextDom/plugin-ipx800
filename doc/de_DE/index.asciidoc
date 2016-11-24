@@ -1,13 +1,13 @@
 == Präsentation ==
-Ce plugin permet de gérer les cartes IPX800 de GCE.
+Dieses Plugin ermöglicht es Ihnen die IPX800-Karte von GCE-Electronics zu verwalten.
 
-Initialement, ce plugin a été créé pour connecter les IPX800 de GCE.
+Ursprünglich ist dieses Plugin entstanden, um sich mit der IPX800 GCE zu verbinden.
 
-=== Données visibles sur le Dashboard : ===
-* ''les entrées analogiques''
-* ''les entrées numeriques''
-* ''les relais''
-* ''les compteurs d'impulsions''
+=== Ersichtliche Daten auf dem Armaturenbrett : ===
+* ''Die Analogeingänge''
+* ''Die Digitaleingänge''
+* ''Die Relais''
+* ''Die Impulszähler''
 
 == Installation/Einrichtung ==
 Nous allons maintenant paramétrer un équipement. Pour se faire, cliquer sur ''Plugins / Protocole domotique / IPX800''
@@ -43,19 +43,19 @@ Par defaut, voici le comportement :
 
 Les commandes sont toutes paramétrées.
 
-* ''les entrées analogiques''
+* ''Die Analogeingänge''
 
 Les commandes sont toutes par defaut visible et le type dépend de la sonde choisi.
 
-* ''les entrées numeriques''
+* ''Die Digitaleingänge''
 
 Les commandes sont considérées comme des lumières.
 
-* ''les relais''
+* ''Die Relais''
 
 Les commandes sont considérées comme des lumières.
 
-* ''les compteurs d'impulsions''
+* ''Die Impulszähler''
 
 Les commandes sont considérées comme des types génériques.
 
