@@ -10,22 +10,22 @@ Ursprünglich ist dieses Plugin entstanden, um sich mit der IPX800 GCE zu verbin
 * ''Die Impulszähler''
 
 == Installation/Einrichtung ==
-Nous allons maintenant paramétrer un équipement. Pour se faire, cliquer sur ''Plugins / Protocole domotique / IPX800''
+Wir werden jetzt ein Gerät einrichten. Um dort hin zu kommen, klicken Sie auf ''Plugins /  Automatisierungsprotokolle / IPX800''.
 
-Puis cliquer sur le bouton en haut à gauche ''Ajouter un équipement''
+Dann auf die Schaltfläche oben links "Gerät hinzufügen" klicken
 
-Puis saisir le nom de l'équipement (ex. IPX 1).
+Dann den Namen des Gerätes eingeben (z.B. IPX 1)
 
-Puis définir :
+Dann definieren Sie :
 
-* ''Objet parent''
-* ''Catégorie'' (optionnelle)
-* ''Activer'' (à cocher, sinon l’équipement ne sera pas utilisable)
-* ''Visible'' (optionel si vous ne désirez pas le rendre visible sur le Dashboard)
-* ''Adresse IP''
+* ''Eltern-Objekt''
+* "Kategorie" (optional)
+* ''Aktivieren'' (ankreuzen, andernfalls wird das Gerät nicht nutzbar sein)
+* ''Sichtbar'' (optional, wenn Sie nicht wünschen, dass es auf dem Armaturenbrett sichtbar ist)
+* ''IP Adresse''
 * ''Port''
-* ''Compte''
-* ''Mot de passe''
+* ''Konto''
+* ''Passwort''
 
 === Aktualisierungsrate  ===
 Pour les entrées analogiques et les compteurs, les données sont récupérées par le plugin toutes les minutes. Il n'est pas possible d'avoir une fréquence plus élevée.
@@ -34,12 +34,12 @@ Pour le reste, si le mode push est activé, le rafraichissement est quasi instan
 Pour activer le push, il faut cliquer sur
 image::../images/bouton_config_push.jpg[]
 
-Ensuite aller en bas et cliquer sur Appliquer.
+Dann gehen Sie nach unten und klicken Sie auf Anwenden.
 
-=== Comportement avec l'application mobile ===
+=== Verhalten mit der Mobilen Anwendung ===
 Par defaut, voici le comportement :
 
-* ''L'ip800''
+* ''IP800''
 
 Les commandes sont toutes paramétrées.
 
@@ -61,7 +61,7 @@ Les commandes sont considérées comme des types génériques.
 
 Il faut noter que l'on retrouvera dans l'application les commandes à partir du moment où elles sont paramétrées, même si elles ne sont pas marquées comme visible. Pour les masquer, il faut choisir dans "Configuration commande" => "Type générique" => "Ne pas tenir compte de cette commande".
 
-== Quelques copies d'écran ==
+== Einige Kopien von Bildschirm ==
 image::../images/ipx800_screenshot1.jpg[align="center"]
 image::../images/ipx800_screenshot2.jpg[align="center"]
 image::../images/ipx800_screenshot3.jpg[align="center"]
