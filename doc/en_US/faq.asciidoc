@@ -1,5 +1,5 @@
 [panel,primary]
-.Lorsqu'une entrée/sortie change, la mise à jour dans jeedom n'est pas instantané ?
+. When input/output changes, the update in jeedom is not instantaneous?
 --
 Oui il suffit de demander en passant par le forum.
 --

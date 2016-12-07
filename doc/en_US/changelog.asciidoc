@@ -1,5 +1,5 @@
 [horizontal]
-1.42:: Continue la collecte lorsque une IPX est HS.
+1.42: continues the collection when an IPX is HS.
 +
 Trappe certains messages d'erreur.
 +
