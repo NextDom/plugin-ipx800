@@ -63,6 +63,7 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			alert('Remplacer #temp# par la température réél.');
 			break;
 		case 'Autre':
+			formule = '';
 			break;
 		default:
 			formule = '#brut#';
