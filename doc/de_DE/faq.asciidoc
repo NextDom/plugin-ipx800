@@ -14,3 +14,14 @@ Elles sont mises à jour une fois par minutes pour les entrées analogiques et l
 --
 Il est nécessaire au préalable d'activer temporairement le debug de Jeedom (menu Configuration => Configuration des logs & messages => Activer + Niveau de log = Debug).
 --
+
+.Pourquoi le plugin est gratuit ?
+--
+Ce plugin est gratuit pour que chacun puisse en profiter simplement. Si vous souhaitez tout de même faire un don au développeur du plugin, utilisez le lien suivant.
+link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=U43F9GVG9KMH8[Faire un don au développeur du plugin]
+--
+
+.J'aimerai remonter des erreurs/modifications directement dans le code ?
+--
+C'est tout à fait possible via https://github.com/guenneguezt/plugin-ipx800[github]
+--
