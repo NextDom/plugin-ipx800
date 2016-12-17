@@ -31,7 +31,8 @@ Puis définir :
 Pour les entrées analogiques et les compteurs, les données sont récupérées par le plugin toutes les minutes. Il n'est pas possible d'avoir une fréquence plus élevée.
 Pour le reste, si le mode push est activé, le rafraichissement est quasi instantané.
 
-Pour activer le push, il faut cliquer sur
+[[config_push]] Pour activer le push, il faut cliquer sur
+
 image::../images/bouton_config_push.jpg[]
 
 Ensuite aller en bas et cliquer sur Appliquer.

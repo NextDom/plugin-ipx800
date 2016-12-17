@@ -1,7 +1,7 @@
 [panel,primary]
 . When input/output changes, the update in jeedom is not instantaneous?
 --
-Oui il suffit de demander en passant par le forum.
+Oui il suffit de suivre ce qui est écrit xref:config_push[là].
 --
 
 .A quelle fréquence les données sont-elles mise à jour ?

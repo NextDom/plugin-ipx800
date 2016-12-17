@@ -1,7 +1,7 @@
 [panel,primary]
 .Lorsqu'une entrée/sortie change, la mise à jour dans jeedom n'est pas instantané ?
 --
-Oui il suffit de demander en passant par le forum.
+Oui il suffit de suivre ce qui est écrit xref:config_push[là].
 --
 
 .A quelle fréquence les données sont-elles mise à jour ?
