@@ -63,4 +63,4 @@ Ajout d'une information status.
 
 1.09:: Ajout des formules pour les entrée analogiques.
 
-1.1:: Ajout `all on` et `all off`.
+1.1:: Add `all on` et `all off`.
