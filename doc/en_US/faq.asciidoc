@@ -1,4 +1,9 @@
 [panel,primary]
+.Je n'arrive pas a accéder aux sous indicateurs ?
+--
+Il faut dans le menu gauche cliquer sur l'icône suivant pour y avoir accès : image:../images/acces_sous_indicateur.jpg[la]
+--
+
 . When input/output changes, the update in jeedom is not instantaneous?
 --
 Oui il suffit de suivre ce qui est écrit xref:config_push[là].
