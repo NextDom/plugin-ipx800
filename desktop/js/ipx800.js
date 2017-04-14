@@ -7,7 +7,7 @@ $("#table_cmd_ipx800_analogique").delegate(".listEquipementInfo", 'click', funct
 });
 
 $("#table_cmd_ipx800_analogique").delegate(".Formule", 'change', function () {
-	$('.choixFormule option[value=""]').prop('selected', true);
+	$('.choixFormule option[value="Autre"]').prop('selected', true);
 });
 
 $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function () {
@@ -52,6 +52,10 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			formule = '#brut# * 0.01615';
 			unite = 'A';
 			break;
+		case 'CT100A':
+			formule = '#brut# * 0.0323';
+			unite = 'A';
+			break;
 		case 'Ph':
 			formule = '#brut# / 100';
 			unite = 'Ph';
@@ -61,6 +65,10 @@ $("#table_cmd_ipx800_analogique").delegate(".choixFormule", 'change', function (
 			formule = '( ( #brut# * 0.00323 / 3.3 ) - 0.1515 ) / 0.00636 / ( 1.0546 - ( 0.00216 * #temp# ) )';
 			unite = '% RH';
 			alert('Remplacer #temp# par la température réél.');
+			break;
+		case 'ORP Probe':
+			formule = '#brut# - 2500';
+			unite = 'mV';
 			break;
 		case 'Autre':
 			formule = '';
