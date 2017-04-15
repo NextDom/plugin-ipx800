@@ -1,4 +1,8 @@
 [horizontal]
+1.44:: Correction du nombre d'entrée pour l'extention X800-2
+
+1.43:: Prise en compte des sondes CT100A et ORP Probe.
+
 1.42: continues the collection when an IPX is HS.
 +
 Trappe certains messages d'erreur.
