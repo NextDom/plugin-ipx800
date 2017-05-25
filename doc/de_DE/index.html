@@ -660,249 +660,142 @@ Elles sont mises à jour une fois par minutes pour les entrées analogiques et l
 <div class="sect1">
 <h2 id="_fehlersuche">5. Fehlersuche</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock warning">
 <table>
 <tr>
-<td class="hdlist1">
-1.44
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
 </td>
-<td class="hdlist2">
-<p>Correction du nombre d&#8217;entrée pour l&#8217;extention X800-2</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.43
-</td>
-<td class="hdlist2">
-<p>Prise en compte des sondes CT100A et ORP Probe.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.42
-</td>
-<td class="hdlist2">
-<p>Continue la collecte lorsque une IPX est HS.</p>
-<div class="paragraph">
-<p>Trappe certains messages d&#8217;erreur.</p>
-</div>
-<div class="paragraph">
-<p>Ajout du type LIGHT_TOGGL pour les relais.</p>
-</div>
-<div class="paragraph">
-<p>Définition template des relais boutons.</p>
-</div>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.41
-</td>
-<td class="hdlist2">
-<p>Modification être compatible avec le plugin mobile.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.40
-</td>
-<td class="hdlist2">
-<p>Mise a jour des entrées analogiques, même si la valeur ne change pas pour les graphiques.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.39
-</td>
-<td class="hdlist2">
-<p>Jeedom 2.0 Kompatibilität</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.38
-</td>
-<td class="hdlist2">
-<p>Modification de cron pour plus d&#8217;autonomie.</p>
-<div class="paragraph">
-<p>Modification de l&#8217;extension du logo.</p>
-</div>
-<div class="paragraph">
-<p>Compatibilité Imperihome.</p>
-</div>
-<div class="paragraph">
-<p>Retrait de la suppression des équipements lors de la désactivation du plugin.</p>
-</div>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.37
-</td>
-<td class="hdlist2">
-<p>Correction par rapport au nouveau core.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.36
-</td>
-<td class="hdlist2">
-<p>Correction des formules pour les pinces ampèremetriques.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.35
-</td>
-<td class="hdlist2">
-<p>Message de debug pour les receptions de push.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.34
-</td>
-<td class="hdlist2">
-<p>Prise en compte du port pour jeedom et de l&#8217;IP sans qu&#8217;il soit nécessaire que ce soit renseigné au niveau globale.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.33
-</td>
-<td class="hdlist2">
-<p>Correction des fréquences d&#8217;impulsion par minute.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.32
-</td>
-<td class="hdlist2">
-<p>Message de debug pour les calculs d&#8217;impulsion/minute.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.31
-</td>
-<td class="hdlist2">
-<p>Supression de l&#8217;info <code>updatetime</code>.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.30
-</td>
-<td class="hdlist2">
-<p>Ajout des pinces 50A.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.29
-</td>
-<td class="hdlist2">
-<p>Ajout de Correction automatique par rapport au seuil Min et Max.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.28
-</td>
-<td class="hdlist2">
-<p>Ajout de lien vers les options d&#8217;affichage.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.27
-</td>
-<td class="hdlist2">
-<p>Correction de double cron.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.26
-</td>
-<td class="hdlist2">
-<p>Prise en charge des compteurs indépendament des boutons.</p>
-<div class="paragraph">
-<p>Ajout du nombre d&#8217;impulsions par minute.</p>
-</div>
-<div class="paragraph">
-<p>Ajout d&#8217;une information status.</p>
-</div>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.24
-</td>
-<td class="hdlist2">
-<p>Redéclenchement jusqu&#8217;à 3 fois en cas d&#8217;indispo de l&#8217;IPX.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.18
-</td>
-<td class="hdlist2">
-<p>Prise en compte des extensions x800 et x400.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.15
-</td>
-<td class="hdlist2">
-<p>Correction pour la réception des push pour les entrées numériques.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.13
-</td>
-<td class="hdlist2">
-<p>Prise en compte des unitées pour les entrées analogiques.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.12
-</td>
-<td class="hdlist2">
-<p>Correction de la cron pour ne prendre que les changements d&#8217;état.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.11
-</td>
-<td class="hdlist2">
-<p>Possibilité de configurer le push que sur certaines entrées.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.09
-</td>
-<td class="hdlist2">
-<p>Ajout des formules pour les entrée analogiques.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-1.1
-</td>
-<td class="hdlist2">
-<p>Ajout <code>all on</code> et <code>all off</code>.</p>
+<td class="content">
+Detail complet des mises à jour sur <a href="https://github.com/guenneguezt/plugin-ipx800/commits/master">Historique Commit</a>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Liste des évolutions majeures de la version courante :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modification pour compatibilité Jeedom V3</p>
+</li>
+<li>
+<p>Plus de suivi de version</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Anciennes évolutions :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Correction du nombre d&#8217;entrée pour l&#8217;extention X800-2</p>
+</li>
+<li>
+<p>Prise en compte des sondes CT100A et ORP Probe.</p>
+</li>
+<li>
+<p>Continue la collecte lorsque une IPX est HS.</p>
+</li>
+<li>
+<p>Trappe certains messages d&#8217;erreur.</p>
+</li>
+<li>
+<p>Ajout du type LIGHT_TOGGL pour les relais.</p>
+</li>
+<li>
+<p>Définition template des relais boutons.</p>
+</li>
+<li>
+<p>Modification être compatible avec le plugin mobile.</p>
+</li>
+<li>
+<p>Mise a jour des entrées analogiques, même si la valeur ne change pas pour les graphiques.</p>
+</li>
+<li>
+<p>Compatibilité Jeedom 2.0.</p>
+</li>
+<li>
+<p>Modification de cron pour plus d&#8217;autonomie.</p>
+</li>
+<li>
+<p>Modification de l&#8217;extension du logo.</p>
+</li>
+<li>
+<p>Compatibilité Imperihome.</p>
+</li>
+<li>
+<p>Retrait de la suppression des équipements lors de la désactivation du plugin.</p>
+</li>
+<li>
+<p>Correction par rapport au nouveau core.</p>
+</li>
+<li>
+<p>Correction des formules pour les pinces ampèremetriques.</p>
+</li>
+<li>
+<p>Message de debug pour les receptions de push.</p>
+</li>
+<li>
+<p>Prise en compte du port pour jeedom et de l&#8217;IP sans qu&#8217;il soit nécessaire que ce soit renseigné au niveau globale.</p>
+</li>
+<li>
+<p>Correction des fréquences d&#8217;impulsion par minute.</p>
+</li>
+<li>
+<p>Message de debug pour les calculs d&#8217;impulsion/minute.</p>
+</li>
+<li>
+<p>Supression de l&#8217;info <code>updatetime</code>.</p>
+</li>
+<li>
+<p>Ajout des pinces 50A.</p>
+</li>
+<li>
+<p>Ajout de Correction automatique par rapport au seuil Min et Max.</p>
+</li>
+<li>
+<p>Ajout de lien vers les options d&#8217;affichage.</p>
+</li>
+<li>
+<p>Correction de double cron.</p>
+</li>
+<li>
+<p>Prise en charge des compteurs indépendament des boutons.</p>
+</li>
+<li>
+<p>Ajout du nombre d&#8217;impulsions par minute.</p>
+</li>
+<li>
+<p>Ajout d&#8217;une information status.</p>
+</li>
+<li>
+<p>Redéclenchement jusqu&#8217;à 3 fois en cas d&#8217;indispo de l&#8217;IPX.</p>
+</li>
+<li>
+<p>Prise en compte des extensions x800 et x400.</p>
+</li>
+<li>
+<p>Correction pour la réception des push pour les entrées numériques.</p>
+</li>
+<li>
+<p>Prise en compte des unitées pour les entrées analogiques.</p>
+</li>
+<li>
+<p>Correction de la cron pour ne prendre que les changements d&#8217;état.</p>
+</li>
+<li>
+<p>Possibilité de configurer le push que sur certaines entrées.</p>
+</li>
+<li>
+<p>Ajout des formules pour les entrée analogiques.</p>
+</li>
+<li>
+<p>Ajout <code>all on</code> et <code>all off</code>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
