@@ -135,21 +135,21 @@ class ipx800_compteurCmd extends cmd
         }
     }
 
-    public function event($_value, $_loop = 1) {
+    public function event($_value, $_datetime = NULL, $_loop = 1) {
         if ($this->getLogicalId() == 'nbimpulsionminute') {
 			try {
 				$calcul = $this->getConfiguration('calcul');
 				$calcul = preg_replace("/#brut#/", $_value, $calcul);
 				$calcul = scenarioExpression::setTags($calcul);
 				$result = evaluate($calcul);
-				parent::event($result, $_loop);
+				parent::event($result, $_datetime, $_loop);
 			} catch (Exception $e) {
 				$EqLogic = $this->getEqLogic();
 				log::add('ipx800', 'error', $EqLogic->getName()." error in ".$this->getConfiguration('calcul')." : ".$e->getMessage());
 				return scenarioExpression::setTags(str_replace('"', '', cmd::cmdToValue($this->getConfiguration('calcul'))));
 			}
 		} else {
-			parent::event($_value, $_loop);
+			parent::event($_value, $_datetime, $_loop);
 		}
     }
 }
