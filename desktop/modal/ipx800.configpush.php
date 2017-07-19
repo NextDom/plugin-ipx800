@@ -26,55 +26,12 @@ if (!is_object($eqLogic)) {
     throw new Exception('{{EqLogic non trouvé}}');
 }
 ?>
+
 <fieldset>
 <legend>{{Relai}}</legend>
 <?php
 echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="relai_' . $eqLogic->getId() . '">';
-	for ($compteurId = 0; $compteurId <= 7; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_R".$compteurId, 'ipx800_relai');
-		if ( is_object($SubeqLogic) ) {
-			echo '<label class="checkbox-inline">';
-			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
-			echo '</label><br>';
-		}
-	}
-?>
-</fieldset>
-<fieldset>
-<legend>{{Relai X800 1}}</legend>
-<?php
-echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="relai_' . $eqLogic->getId() . '">';
-	for ($compteurId = 8; $compteurId <= 15; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_R".$compteurId, 'ipx800_relai');
-		if ( is_object($SubeqLogic) ) {
-			echo '<label class="checkbox-inline">';
-			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
-			echo '</label><br>';
-		}
-	}
-?>
-</fieldset>
-<fieldset>
-<fieldset>
-<legend>{{Relai X800 2}}</legend>
-<?php
-echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="relai_' . $eqLogic->getId() . '">';
-	for ($compteurId = 16; $compteurId <= 23; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_R".$compteurId, 'ipx800_relai');
-		if ( is_object($SubeqLogic) ) {
-			echo '<label class="checkbox-inline">';
-			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
-			echo '</label><br>';
-		}
-	}
-?>
-</fieldset>
-<fieldset>
-<fieldset>
-<legend>{{Relai X800 3}}</legend>
-<?php
-echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="relai_' . $eqLogic->getId() . '">';
-	for ($compteurId = 24; $compteurId <= 31; $compteurId++) {
+	for ($compteurId = 0; $compteurId <= 31; $compteurId++) {
 		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_R".$compteurId, 'ipx800_relai');
 		if ( is_object($SubeqLogic) ) {
 			echo '<label class="checkbox-inline">';
@@ -88,7 +45,7 @@ echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLo
 <legend>{{Entrée numérique}}</legend>
 <?php
 echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="bouton_' . $eqLogic->getId() . '">';
-	for ($compteurId = 0; $compteurId <= 7; $compteurId++) {
+	for ($compteurId = 0; $compteurId <= 31; $compteurId++) {
 		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_B".$compteurId, 'ipx800_bouton');
 		if ( is_object($SubeqLogic) ) {
 			echo '<label class="checkbox-inline">';
@@ -100,52 +57,37 @@ echo '</ul>';
 ?>
 </fieldset>
 <fieldset>
-<legend>{{Entrée numérique X800 1}}</legend>
+<legend>{{Entrée analogique}}</legend>
 <?php
 echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="bouton_' . $eqLogic->getId() . '">';
-	for ($compteurId = 8; $compteurId <= 15; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_B".$compteurId, 'ipx800_bouton');
+	$url_serveur = $eqLogic->getUrl();
+	echo '<div class="row">';
+	echo '<div class="col-sm-3 control-label"></div>';
+	echo '<div class="col-sm-1 control-label">Seuil bas de déclanchement</div>';
+	echo '<div class="col-sm-1 control-label">Seuil haut de déclanchement</div>';
+	echo '</div>';
+	for ($compteurId = 0; $compteurId <= 15; $compteurId++) {
+		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_A".$compteurId, 'ipx800_analogique');
 		if ( is_object($SubeqLogic) ) {
-			echo '<label class="checkbox-inline">';
-			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
-			echo '</label><br>';
-		}
-	}
-echo '</ul>';
-?>
-</fieldset>
-<fieldset>
-<legend>{{Entrée numérique X800 2}}</legend>
-<?php
-echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="bouton_' . $eqLogic->getId() . '">';
-	for ($compteurId = 16; $compteurId <= 23; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_B".$compteurId, 'ipx800_bouton');
-		if ( is_object($SubeqLogic) ) {
-			echo '<label class="checkbox-inline">';
-			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
-			echo '</label><br>';
-		}
-	}
-echo '</ul>';
-?>
-</fieldset>
-<fieldset>
-<legend>{{Entrée numérique X800 3}}</legend>
-<?php
-echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="bouton_' . $eqLogic->getId() . '">';
-	for ($compteurId = 24; $compteurId <= 31; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_B".$compteurId, 'ipx800_bouton');
-		if ( is_object($SubeqLogic) ) {
-			echo '<label class="checkbox-inline">';
-			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
-			echo '</label><br>';
+			list($SeuilBas, $SeuilHaut) = $SubeqLogic->configPushGet($url_serveur);
+			echo '<div class="row">';
+			echo '<label class="col-sm-3">';
+			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '"';
+			if ( $SeuilBas != "0" || $SeuilHaut != "0" )
+			{
+				echo 'checked';
+			}
+			echo '/>' . $SubeqLogic->getName() . '</label>';
+			echo '<input type="text" class="col-sm-1 configPusheqLogic" id="SeuilBas_' . $SubeqLogic->getId() . '" value="'.$SeuilBas.'"/>';
+			echo '<input type="text" class="col-sm-1 configPusheqLogic" id="SeuilHaut_' . $SubeqLogic->getId() . '" value="'.$SeuilHaut.'"/>';
+			echo '</div>';
 		}
 	}
 echo '</ul>';
 ?>
 </fieldset>
 <div class="form-group alert alert-warning">
-Attention, chaque case validée renseignera le Push settings concerné de l'ipx800 et effacera la configuration existante.
+Attention, chaque case validée renseignera le Push settings concerné de l'ipx800 et effacera la configuration existante. Pour les entrées analogique, les associations à des relais pourront être perdu.
 </div>
 <div id='div_configurePush' style="display: none;"></div>
 <a class="btn btn-warning pull-right" id="bt_ApplyconfigPush" style="color : white;"><i class="fa fa-wrench"></i> {{Appliquer}}</a>

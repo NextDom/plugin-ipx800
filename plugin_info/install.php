@@ -31,6 +31,10 @@ function ipx800_install() {
 	}
 	config::remove('listChildren', 'ipx800');
 	config::save('subClass', 'ipx800_bouton;ipx800_analogique;ipx800_relai;ipx800_compteur', 'ipx800');
+	jeedom::getApiKey('ipx800');
+	if (config::byKey('api::ipx800::mode') == '') {
+		config::save('api::ipx800::mode', 'enable');
+	}
 }
 
 function ipx800_update() {
@@ -65,6 +69,14 @@ function ipx800_update() {
 	}
 	foreach (eqLogic::byType('ipx800') as $eqLogic) {
 		$eqLogic->save();
+	}
+	if ( config::byKey('api', 'ipx800', '') == "" )
+	{
+		log::add('ipx800', 'alert', __('Une clef API "ipx800" a été configurée. Pensez à reconfigurer le push de chaque carte IPX800', __FILE__));
+	}
+	jeedom::getApiKey('ipx800');
+	if (config::byKey('api::ipx800::mode') == '') {
+		config::save('api::ipx800::mode', 'enable');
 	}
 }
 

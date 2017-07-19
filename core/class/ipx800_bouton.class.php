@@ -166,12 +166,12 @@ class ipx800_bouton extends eqLogic {
 		$result = @file_get_contents($url);
 		if ( $result === false )
 			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
-		$url = $url_serveur .'&cmd1='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.config::byKey('api').'&type=ipx800_bouton&id='.$cmd->getId().'&state=1');
+		$url = $url_serveur .'&cmd1='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.jeedom::getApiKey('ipx800').'&plugin=ipx800&type=ipx800_bouton&id='.$cmd->getId().'&state=1');
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 		$result = @file_get_contents($url);
 		if ( $result === false )
 			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
-		$url = $url_serveur .'&cmd2='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.config::byKey('api').'&type=ipx800_bouton&id='.$cmd->getId().'&state=0');
+		$url = $url_serveur .'&cmd2='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.jeedom::getApiKey('ipx800').'&plugin=ipx800&type=ipx800_bouton&id='.$cmd->getId().'&state=0');
 		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
 		$result = @file_get_contents($url);
 		if ( $result === false )

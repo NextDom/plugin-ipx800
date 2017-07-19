@@ -387,13 +387,23 @@ class ipx800 extends eqLogic {
 		}
 		if ( $this->getIsEnable() ) {
 			log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $this->getUrl()));
+			$liste_seuil_bas = explode(',', init('seuil_bas'));
+			$liste_seuil_haut = explode(',', init('seuil_haut'));
+			
 			foreach (explode(',', init('eqLogicPush_id')) as $_eqLogic_id) {
 				$eqLogic = eqLogic::byId($_eqLogic_id);
 				if (!is_object($eqLogic)) {
 					throw new Exception(__('Impossible de trouver l\'équipement : ', __FILE__) . $_eqLogic_id);
 				}
 				if ( method_exists($eqLogic, "configPush" ) ) {
-					$eqLogic->configPush($this->getUrl(), $pathjeedom, config::byKey("internalAddr"), config::byKey("internalPort"));
+					if ( get_class ($eqLogic) == "ipx800_analogique" )
+					{
+						$eqLogic->configPush($this->getUrl(), $pathjeedom, config::byKey("internalAddr"), config::byKey("internalPort"), array_shift($liste_seuil_bas), array_shift($liste_seuil_haut));
+					}
+					else
+					{
+						$eqLogic->configPush($this->getUrl(), $pathjeedom, config::byKey("internalAddr"), config::byKey("internalPort"));
+					}
 				}
 			}
 		}

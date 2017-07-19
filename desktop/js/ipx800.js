@@ -259,8 +259,13 @@ $('#bt_UnCheckAll').on('click', function() {
 
 $('#bt_ApplyconfigPush').on('click', function() {
 	var list_object = [];
+	var seuil_bas = [];
+	var seuil_haut = [];
 	$('.configPusheqLogic:checked').each(function() {
-		list_object.push($(this).attr('data-configPusheqLogic_id'));
+		eqLogic_id = $(this).attr('data-configPusheqLogic_id');
+		list_object.push(eqLogic_id);
+		seuil_bas.push($('#SeuilBas_'+eqLogic_id).value());
+		seuil_haut.push($('#SeuilHaut_'+eqLogic_id).value());
 		}
 	);
     $.ajax({// fonction permettant de faire de l'ajax
@@ -269,7 +274,9 @@ $('#bt_ApplyconfigPush').on('click', function() {
         data: {
             action: "configPush",
 			id: $('.li_eqLogic.active').attr('data-eqLogic_id'),
-			eqLogicPush_id: list_object.join(",")
+			eqLogicPush_id: list_object.join(","),
+			seuil_bas: seuil_bas.join(","),
+			seuil_haut: seuil_haut.join(",")
         },
         dataType: 'json',
         error: function(request, status, error) {

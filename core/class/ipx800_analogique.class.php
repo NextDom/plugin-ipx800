@@ -207,6 +207,44 @@ class ipx800_analogique extends eqLogic {
 		}
     }
 
+	public function configPush($url_serveur, $pathjeedom, $ipjeedom, $portjeeom, $seuil_base, $seuil_haut) {
+		$gceid = substr($this->getLogicalId(), strpos($this->getLogicalId(),"_")+2);
+        $cmd = $this->getCmd(null, 'brut');
+		$url_serveur .= 'protect/assignio/analog'.($gceid+1).'.htm';
+		$url = $url_serveur .'?analog='.$gceid.'&hi='.$seuil_haut.'&lo='.$seuil_base;
+		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
+		$result = @file_get_contents($url);
+		if ( $result === false )
+			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
+		$url = $url_serveur .'?ch='.$gceid.'&svr='.$ipjeedom.'&port='.$portjeeom.'&log=user%3Apass&en=1';
+		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
+		$result = @file_get_contents($url);
+		if ( $result === false )
+			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
+		$url = $url_serveur .'?ch='.$gceid.'&cmd1='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.jeedom::getApiKey('ipx800').'&plugin=ipx800&type=ipx800_analogique&id='.$cmd->getId().'&voltage=$A'.($gceid+1));
+		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
+		$result = @file_get_contents($url);
+		if ( $result === false )
+			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
+		$url = $url_serveur .'?ch='.$gceid.'&cmd2='.urlencode($pathjeedom.'core/api/jeeApi.php?api='.jeedom::getApiKey('ipx800').'&plugin=ipx800&type=ipx800_analogique&id='.$cmd->getId().'&voltage=$A'.($gceid+1));
+		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
+		$result = @file_get_contents($url);
+		if ( $result === false )
+			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
+	}
+
+	public function configPushGet($url_serveur) {
+		$gceid = substr($this->getLogicalId(), strpos($this->getLogicalId(),"_")+2);
+		$url_serveur .= 'protect/assignio/analog'.($gceid+1).'.htm';
+		log::add('ipx800','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url_serveur));
+		$result = @file_get_contents($url_serveur);
+		if ( $result === false )
+			throw new Exception(__('L\'ipx ne repond pas.',__FILE__));
+		preg_match ("/var GetDataH = *([0-9]*);/", $result, $GetDataH);
+		preg_match ("/var GetDataL = *([0-9]*);/", $result, $GetDataL);
+		return array($GetDataL[1], $GetDataH[1]);
+	}
+
     public function getLinkToConfiguration() {
         return 'index.php?v=d&p=ipx800&m=ipx800&id=' . $this->getId();
     }
