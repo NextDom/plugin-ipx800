@@ -101,7 +101,13 @@
         "Supprimer": "Delete",
         "Sauvegarder": "Save",
         "Sauvegarde effectuée avec succès": "Success saving",
-        "Utilisez sur l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>": "Use this icon to see details <i class=\"fa fa-sitemap\"><\\/i>"
+        "Utilisez sur l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>": "Use this icon to see details <i class=\"fa fa-sitemap\"><\\/i>",
+        "Extensions X200ph": "Extensions X200ph",
+        "Carte X200ph 1": "Carte X200ph 1",
+        "Carte X200ph 2": "Carte X200ph 2",
+        "Gestion": "Gestion",
+        "Configuration": "Configuration",
+        "Utilisez l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>": "Utilisez l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>"
     },
     "plugins\/ipx800\/desktop\/modal\/ipx800.configpush.php": {
         "Information générale": "Informations",
@@ -117,7 +123,8 @@
         "Entrée numérique X800 3": "Digital input X800 3",
         "Appliquer": "Apply",
         "Tout décocher": "Uncheck all",
-        "Tout cocher": "Check all"
+        "Tout cocher": "Check all",
+        "Entrée analogique": "Entrée analogique"
     },
     "plugins\/ipx800\/desktop\/js\/ipx800.js": {
         "Nom": "Name",
@@ -136,5 +143,12 @@
         "Configurer l'IPX pour avoir le retour des etats": "Set IPX to have state return",
         "Accèder à l'interface de l'IPX": "Access user interface of the IPX",
         "Application de la configuration Push correcte": "Apply the correct push setting"
+    },
+    "plugins\/ipx800\/plugin_info\/info.json": {
+        "Nécessite firmware 3.05.42 minimum": "Nécessite firmware 3.05.42 minimum"
+    },
+    "plugins\/ipx800\/plugin_info\/configuration.php": {
+        "Faire un don au développeur": "Faire un don au développeur",
+        "Faire un don via Paypal au développeur": "Faire un don via Paypal au développeur"
     }
 }
