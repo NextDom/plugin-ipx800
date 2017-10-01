@@ -146,9 +146,5 @@
     },
     "plugins\/ipx800\/plugin_info\/info.json": {
         "Nécessite firmware 3.05.42 minimum": "Nécessite firmware 3.05.42 minimum"
-    },
-    "plugins\/ipx800\/plugin_info\/configuration.php": {
-        "Faire un don au développeur": "Faire un don au développeur",
-        "Faire un don via Paypal au développeur": "Faire un don via Paypal au développeur"
     }
 }
