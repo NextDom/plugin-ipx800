@@ -239,15 +239,8 @@ $('.eqLogicAction[data-action=hide]').on('click', function () {
     return false;
 });
 
-function printEqLogic(_eqLogic) {
-	if ( _eqLogic.configuration.type == 'carte' )
-	{
-		$('.carte_only').show();
-	}
-	else
-	{
-		$('.carte_only').hide();
-	}
+function prePrintEqLogic() {
+	$('.eqLogic').hide();
 }
 
 $('#bt_CheckAll').on('click', function() {
@@ -300,4 +293,8 @@ $('#bt_ApplyconfigPush').on('click', function() {
     });
 });
 
+$("#table_cmd_ipx800_analogique").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd_ipx800_relai").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd_ipx800_bouton").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd_ipx800_compteur").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});

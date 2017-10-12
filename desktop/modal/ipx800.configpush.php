@@ -32,7 +32,7 @@ if (!is_object($eqLogic)) {
 <?php
 echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="relai_' . $eqLogic->getId() . '">';
 	for ($compteurId = 0; $compteurId <= 31; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_R".$compteurId, 'ipx800');
+		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_R".$compteurId, 'ipx800_relai');
 		if ( is_object($SubeqLogic) ) {
 			echo '<label class="checkbox-inline">';
 			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
@@ -46,7 +46,7 @@ echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLo
 <?php
 echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLogic_id="bouton_' . $eqLogic->getId() . '">';
 	for ($compteurId = 0; $compteurId <= 31; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_B".$compteurId, 'ipx800');
+		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_B".$compteurId, 'ipx800_bouton');
 		if ( is_object($SubeqLogic) ) {
 			echo '<label class="checkbox-inline">';
 			echo '<input type="checkbox" class="configPusheqLogic" data-configPusheqLogic_id="' . $SubeqLogic->getId() . '" checked/>' . $SubeqLogic->getName();
@@ -67,7 +67,7 @@ echo '<ul id="ul_eqLogic" class="nav nav-list bs-sidenav sub-nav-list" data-eqLo
 	echo '<div class="col-sm-1 control-label">Seuil haut de déclanchement</div>';
 	echo '</div>';
 	for ($compteurId = 0; $compteurId <= 15; $compteurId++) {
-		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_A".$compteurId, 'ipx800');
+		$SubeqLogic = eqLogic::byLogicalId($eqLogic->getId()."_A".$compteurId, 'ipx800_analogique');
 		if ( is_object($SubeqLogic) ) {
 			list($SeuilBas, $SeuilHaut) = $SubeqLogic->configPushGet($url_serveur);
 			echo '<div class="row">';

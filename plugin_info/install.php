@@ -29,6 +29,8 @@ function ipx800_install() {
         $cron->setSchedule('* * * * *');
         $cron->save();
 	}
+	config::remove('listChildren', 'ipx800');
+	config::save('subClass', 'ipx800_bouton;ipx800_analogique;ipx800_relai;ipx800_compteur', 'ipx800');
 	jeedom::getApiKey('ipx800');
 	if (config::byKey('api::ipx800::mode') == '') {
 		config::save('api::ipx800::mode', 'enable');
@@ -37,7 +39,7 @@ function ipx800_install() {
 
 function ipx800_update() {
 	config::remove('listChildren', 'ipx800');
-	config::remove('subClass', 'wes');
+	config::save('subClass', 'ipx800_bouton;ipx800_analogique;ipx800_relai;ipx800_compteur', 'ipx800');
     $cron = cron::byClassAndFunction('ipx800', 'pull');
 	if ( ! is_object($cron)) {
         $cron = new cron();
@@ -53,66 +55,24 @@ function ipx800_update() {
 		$cron->stop();
 		$cron->remove();
 	}
-	$FlagBasculeClass = false;
 	foreach (eqLogic::byType('ipx800_bouton') as $SubeqLogic) {
-		$SubeqLogic->setConfiguration('type', 'bouton');
-		$SubeqLogic->setEqType_name('ipx800');
 		$SubeqLogic->save();
-		foreach (cmd::byEqLogicId($SubeqLogic->getId()) as $cmd) {
-			$cmd->setEqType('ipx800');
-			$cmd->save();
-		}
-		$FlagBasculeClass = true;
 	}
 	foreach (eqLogic::byType('ipx800_analogique') as $SubeqLogic) {
-		$SubeqLogic->setConfiguration('type', 'analogique');
-		$SubeqLogic->setEqType_name('ipx800');
-		$SubeqLogic->save();
-		foreach (cmd::byEqLogicId($SubeqLogic->getId()) as $cmd) {
-			$cmd->setEqType('ipx800');
-			$cmd->save();
-		}
 		$SubeqLogic->save();
 	}
 	foreach (eqLogic::byType('ipx800_relai') as $SubeqLogic) {
-		$SubeqLogic->setConfiguration('type', 'relai');
-		$SubeqLogic->setEqType_name('ipx800');
-		$SubeqLogic->save();
-		foreach (cmd::byEqLogicId($SubeqLogic->getId()) as $cmd) {
-			$cmd->setEqType('ipx800');
-			$cmd->save();
-		}
 		$SubeqLogic->save();
 	}
 	foreach (eqLogic::byType('ipx800_compteur') as $SubeqLogic) {
-		$SubeqLogic->setConfiguration('type', 'compteur');
-		$SubeqLogic->setEqType_name('ipx800');
-		$SubeqLogic->save();
-		foreach (cmd::byEqLogicId($SubeqLogic->getId()) as $cmd) {
-			$cmd->setEqType('ipx800');
-			$cmd->save();
-		}
 		$SubeqLogic->save();
 	}
 	foreach (eqLogic::byType('ipx800') as $eqLogic) {
-		if ( $eqLogic->getConfiguration('type', '') == '' )
-		{
-			$eqLogic->setConfiguration('type', 'carte');
-			$eqLogic->save();
-			$FlagBasculeClass = true;
-		}
-		foreach (cmd::byEqLogicId($eqLogic->getId()) as $cmd) {
-			if ( $cmd->getEqType() != 'ipx800')
-			{
-				$cmd->setEqType('ipx800');
-				$cmd->save();
-				$FlagBasculeClass = true;
-			}
-		}
+		$eqLogic->save();
 	}
-	if ( $FlagBasculeClass )
+	if ( config::byKey('api', 'ipx800', '') == "" )
 	{
-		log::add('wes','error',__('Les Urls de push ont changer. Pensez à les reconfigurer pour chaque carte.',__FILE__));
+		log::add('ipx800', 'alert', __('Une clef API "ipx800" a été configurée. Pensez à reconfigurer le push de chaque carte IPX800', __FILE__));
 	}
 	jeedom::getApiKey('ipx800');
 	if (config::byKey('api::ipx800::mode') == '') {
