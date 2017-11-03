@@ -1132,7 +1132,7 @@ class ipx800 extends eqLogic {
 			}
 			$eqLogic_cmd = $this->getCmd(null, 'updatetime');
 			$eqLogic_cmd->event(time());
-			foreach (self::byType('ipx800') as $eqLogicRelai) {
+			foreach (eqLogic::byTypeAndSearhConfiguration('ipx800', '"type":"relai"') as $eqLogicRelai) {
 				if ( $eqLogicRelai->getIsEnable() && substr($eqLogicRelai->getLogicalId(), 0, strpos($eqLogicRelai->getLogicalId(),"_")) == $this->getId() ) {
 					$gceid = substr($eqLogicRelai->getLogicalId(), strpos($eqLogicRelai->getLogicalId(),"_")+2);
 					$xpathModele = '//led'.$gceid;
@@ -1149,7 +1149,7 @@ class ipx800 extends eqLogic {
 					}
 				}
 			}
-			foreach (self::byType('ipx800') as $eqLogicBouton) {
+			foreach (eqLogic::byTypeAndSearhConfiguration('ipx800', '"type":"bouton"') as $eqLogicBouton) {
 				if ( $eqLogicBouton->getIsEnable() && substr($eqLogicBouton->getLogicalId(), 0, strpos($eqLogicBouton->getLogicalId(),"_")) == $this->getId() ) {
 					$gceid = substr($eqLogicBouton->getLogicalId(), strpos($eqLogicBouton->getLogicalId(),"_")+2);
 					$xpathModele = '//btn'.$gceid;
@@ -1166,7 +1166,7 @@ class ipx800 extends eqLogic {
 					}
 				}
 			}
-			foreach (self::byType('ipx800') as $eqLogicAnalogique) {
+			foreach (eqLogic::byTypeAndSearhConfiguration('ipx800', '"type":"analogique"') as $eqLogicAnalogique) {
 				if ( $eqLogicAnalogique->getIsEnable() && substr($eqLogicAnalogique->getLogicalId(), 0, strpos($eqLogicAnalogique->getLogicalId(),"_")) == $this->getId() ) {
 					$gceid = substr($eqLogicAnalogique->getLogicalId(), strpos($eqLogicAnalogique->getLogicalId(),"_")+2);
 					$xpathModele = '//analog'.$gceid;
@@ -1185,7 +1185,7 @@ class ipx800 extends eqLogic {
 					}
 				}
 			}
-			foreach (self::byType('ipx800') as $eqLogicCompteur) {
+			foreach (eqLogic::byTypeAndSearhConfiguration('ipx800', '"type":"compteur"') as $eqLogicCompteur) {
 				if ( $eqLogicCompteur->getIsEnable() && substr($eqLogicCompteur->getLogicalId(), 0, strpos($eqLogicCompteur->getLogicalId(),"_")) == $this->getId() ) {
 					$gceid = substr($eqLogicCompteur->getLogicalId(), strpos($eqLogicCompteur->getLogicalId(),"_")+2);
 					$xpathModele = '//count'.$gceid;

@@ -118,6 +118,13 @@ function ipx800_update() {
 	if (config::byKey('api::ipx800::mode') == '') {
 		config::save('api::ipx800::mode', 'enable');
 	}
+	foreach (array("bouton", "relai", "compteur", "analogique") as $type)
+	{
+		if (file_exists (dirname(__FILE__) . '/../core/class/ipx800_'.$type.'.class.php'))
+			unlink(dirname(__FILE__) . '/../core/class/ipx800_'.$type.'.class.php');
+		if (file_exists (dirname(__FILE__) . '/../desktop/php/ipx800_'.$type.'.php'))
+			unlink(dirname(__FILE__) . '/../desktop/php/ipx800_'.$type.'.php');
+	}
 }
 
 function ipx800_remove() {
