@@ -967,13 +967,16 @@ class ipx800 extends eqLogic {
 	}
 
 	public function configPush($url_serveur = null, $pathjeedom = null, $ipjeedom = null, $portjeeom = null, $seuil_base = null, $seuil_haut = null) {
-		if ( ! isset($pathjeedom) )
+		if ( ! defined($pathjeedom) )
 		{
 			if ( config::byKey("internalAddr") == "" || config::byKey("internalPort") == "" )
 			{
 				throw new Exception(__('L\'adresse IP ou le port local de jeedom ne sont pas définit (Administration => Configuration réseaux => Accès interne).', __FILE__));
 			}
-			$pathjeedom = config::byKey("internalComplement");
+			$pathjeedom = config::byKey("internalComplement", "/");
+			if ( strlen($pathjeedom) == 0 ) {
+				$pathjeedom = "/";
+			}
 			if ( substr($pathjeedom, 0, 1) != "/" ) {
 				$pathjeedom = "/".$pathjeedom;
 			}
@@ -1174,12 +1177,13 @@ class ipx800 extends eqLogic {
 					
 					if ( count($status) != 0 )
 					{
+						$value = intval($status[0]);
 						$eqLogic_cmd = $eqLogicAnalogique->getCmd(null, 'brut');
-						if ($eqLogic_cmd->execCmd() != $eqLogic_cmd->formatValue($status[0])) {
-							log::add('ipx800','debug',"Change brut off ".$eqLogicAnalogique->getName());
+						if ($eqLogic_cmd->execCmd() != $eqLogic_cmd->formatValue($value)) {
+							log::add('ipx800','debug',"Change brut off ".$eqLogicAnalogique->getName()." : ".$value);
 						}
 						$eqLogic_cmd->setCollectDate('');
-						$eqLogic_cmd->event($status[0]);
+						$eqLogic_cmd->event($value);
 						$eqLogic_cmd = $eqLogicAnalogique->getCmd(null, 'reel');
 						$eqLogic_cmd->event($eqLogic_cmd->execute());
 					}
