@@ -1197,21 +1197,22 @@ class ipx800 extends eqLogic {
 					
 					if ( count($status) != 0 )
 					{
+						$value = intval($status[0]);
 						$nbimpulsion_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsion');
 						$nbimpulsion = $nbimpulsion_cmd->execCmd();
 						$nbimpulsionminute_cmd = $eqLogicCompteur->getCmd(null, 'nbimpulsionminute');
-						if ( $nbimpulsion != $status[0] ) {
+						if ( $nbimpulsion != $value ) {
 							log::add('ipx800','debug',"Change nbimpulsion off ".$eqLogicCompteur->getName());
 							if ( $nbimpulsion_cmd->getCollectDate() == '' ) {
 								log::add('ipx800','debug',"Change nbimpulsionminute 0");
 								$nbimpulsionminute = 0;
 							} else {
-								if ( $status[0] > $nbimpulsion ) {
-									log::add('ipx800','debug',"Change nbimpulsionminute round ((".$status[0]." - ".$nbimpulsion.")/(".time()." - strtotime(".$nbimpulsion_cmd->getCollectDate()."))*60, 6) = ".round (($status[0] - $nbimpulsion)/(time() - strtotime($nbimpulsion_cmd->getCollectDate()))*60, 6));
-									$nbimpulsionminute = round (($status[0] - $nbimpulsion)/(time() - strtotime($nbimpulsion_cmd->getCollectDate()))*60, 6);
+								if ( $value > $nbimpulsion ) {
+									log::add('ipx800','debug',"Change nbimpulsionminute round ((".$value." - ".$nbimpulsion.")/(".time()." - strtotime(".$nbimpulsion_cmd->getCollectDate()."))*60, 6) = ".round (($value - $nbimpulsion)/(time() - strtotime($nbimpulsion_cmd->getCollectDate()))*60, 6));
+									$nbimpulsionminute = round (($value - $nbimpulsion)/(time() - strtotime($nbimpulsion_cmd->getCollectDate()))*60, 6);
 								} else {
-									log::add('ipx800','debug',"Change nbimpulsionminute round (".$status[0]."/(".time()." - strtotime(".$nbimpulsionminute_cmd->getCollectDate().")*60), 6) = ".round ($status[0]/(time() - strtotime($nbimpulsionminute_cmd->getCollectDate())*60), 6));
-									$nbimpulsionminute = round ($status[0]/(time() - strtotime($nbimpulsionminute_cmd->getCollectDate())*60), 6);
+									log::add('ipx800','debug',"Change nbimpulsionminute round (".$value."/(".time()." - strtotime(".$nbimpulsionminute_cmd->getCollectDate().")*60), 6) = ".round ($status[0]/(time() - strtotime($nbimpulsionminute_cmd->getCollectDate())*60), 6));
+									$nbimpulsionminute = round ($value/(time() - strtotime($nbimpulsionminute_cmd->getCollectDate())*60), 6);
 								}
 							}
 							$nbimpulsionminute_cmd->setCollectDate(date('Y-m-d H:i:s'));
@@ -1221,7 +1222,7 @@ class ipx800 extends eqLogic {
 							$nbimpulsionminute_cmd->event(0);
 						}
 						$nbimpulsion_cmd->setCollectDate(date('Y-m-d H:i:s'));
-						$nbimpulsion_cmd->event($status[0]);
+						$nbimpulsion_cmd->event($value);
 					}
 				}
 			}
