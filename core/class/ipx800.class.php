@@ -57,7 +57,9 @@ class ipx800 extends eqLogic {
 	public function preInsert()
 	{
 		switch ($this->getConfiguration('type', '')) {
+			case "":
 			case "carte":
+				$this->setConfiguration('type', 'carte');
 				$this->setIsVisible(0);
 				break;
 			case "bouton":
@@ -152,6 +154,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_A".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation analogique : '.$this->getId().'_A'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'analogique');
 						$eqLogic->setLogicalId($this->getId().'_A'.$compteurId);
 						$eqLogic->setName('Analogique ' . ($compteurId+1));
@@ -162,6 +165,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_R".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation relai : '.$this->getId().'_R'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'relai');
 						$eqLogic->setLogicalId($this->getId().'_R'.$compteurId);
 						$eqLogic->setName('Relai ' . ($compteurId+1));
@@ -172,6 +176,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_B".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation bouton : '.$this->getId().'_B'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'bouton');
 						$eqLogic->setLogicalId($this->getId().'_B'.$compteurId);
 						$eqLogic->setName('Bouton ' . ($compteurId+1));
@@ -182,6 +187,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_C".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation compteur : '.$this->getId().'_C'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'compteur');
 						$eqLogic->setLogicalId($this->getId().'_C'.$compteurId);
 						$eqLogic->setName('Compteur ' . ($compteurId+1));
@@ -757,6 +763,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_A".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation analogique : '.$this->getId().'_A'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'analogique');
 						$eqLogic->setLogicalId($this->getId().'_A'.$compteurId);
 						$eqLogic->setName('Analogique ' . ($compteurId+1));
@@ -767,6 +774,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_R".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation relai : '.$this->getId().'_R'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'relai');
 						$eqLogic->setLogicalId($this->getId().'_R'.$compteurId);
 						$eqLogic->setName('Relai ' . ($compteurId+1));
@@ -777,6 +785,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_B".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation bouton : '.$this->getId().'_B'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'bouton');
 						$eqLogic->setLogicalId($this->getId().'_B'.$compteurId);
 						$eqLogic->setName('Bouton ' . ($compteurId+1));
@@ -787,6 +796,7 @@ class ipx800 extends eqLogic {
 					if ( ! is_object(self::byLogicalId($this->getId()."_C".$compteurId, 'ipx800')) ) {
 						log::add('ipx800','debug','Creation compteur : '.$this->getId().'_C'.$compteurId);
 						$eqLogic = new ipx800();
+						$eqLogic->setEqType_name('ipx800');
 						$eqLogic->setConfiguration('type', 'compteur');
 						$eqLogic->setLogicalId($this->getId().'_C'.$compteurId);
 						$eqLogic->setName('Compteur ' . ($compteurId+1));

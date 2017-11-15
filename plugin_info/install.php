@@ -37,7 +37,7 @@ function ipx800_install() {
 
 function ipx800_update() {
 	config::remove('listChildren', 'ipx800');
-	config::remove('subClass', 'wes');
+	config::remove('subClass', 'ipx800');
     $cron = cron::byClassAndFunction('ipx800', 'pull');
 	if ( ! is_object($cron)) {
         $cron = new cron();
