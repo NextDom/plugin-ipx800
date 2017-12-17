@@ -8,7 +8,7 @@ Liste der wichtigsten Änderungen in der aktuellen Version :
 Anciennes évolutions :
 
 - Suppression du lien Paypal pour être conforme avec Jeedom V3.1
-- Ajout de configuration push pour entrée analogique
+- die Push-Konfiguration für analoge Eingänge hinzugefügt
 - Ajout d'une Clef API specifique au plugin
 - Modification pour compatibilité Jeedom V3
 - Plus de suivi de version
