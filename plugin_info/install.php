@@ -112,7 +112,7 @@ function ipx800_update() {
 	}
 	if ( $FlagBasculeClass )
 	{
-		log::add('wes','error',__('Les Urls de push ont changer. Pensez à les reconfigurer pour chaque carte.',__FILE__));
+		log::add('ipx800','error',__('Les Urls de push ont changer. Pensez à les reconfigurer pour chaque carte.',__FILE__));
 	}
 	jeedom::getApiKey('ipx800');
 	if (config::byKey('api::ipx800::mode') == '') {

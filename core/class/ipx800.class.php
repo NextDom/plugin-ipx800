@@ -1239,6 +1239,14 @@ class ipx800 extends eqLogic {
 			log::add('ipx800','debug','scan end '.$this->getName());
 		}
 	}
+
+	public function getImage()
+	{
+		if (file_exists(dirname(__FILE__) . '/../../plugin_info/' . $this->getConfiguration('type', '') . '_icon.png')) {
+			return 'plugins/' . $this->getEqType_name() . '/plugin_info/' . $this->getConfiguration('type', '') . '_icon.png';
+		}
+		return parent::getImage();
+	}
     /*     * **********************Getteur Setteur*************************** */
 }
 
@@ -1352,20 +1360,7 @@ class ipx800Cmd extends cmd
 							$brut = $EqLogic->getCmd(null, 'brut');
 							$calcul = preg_replace("/#brut#/", "#".$brut->getId()."#", $calcul);
 						}
-						$calcul = scenarioExpression::setTags($calcul);
 						$result = jeedom::evaluateExpression($calcul);
-						if (is_numeric($result)) {
-							$result = number_format($result, 2);
-						} else {
-							$result = str_replace('"', '', $result);
-						}
-						if ($this->getSubType() == 'numeric') {
-							if (strpos($result, '.') !== false) {
-								$result = str_replace(',', '', $result);
-							} else {
-								$result = str_replace(',', '.', $result);
-							}
-						}
 						return $result;
 					} catch (Exception $e) {
 						$EqLogic = $this->getEqLogic();
@@ -1424,8 +1419,7 @@ class ipx800Cmd extends cmd
 			try {
 				$calcul = $this->getConfiguration('calcul');
 				$calcul = preg_replace("/#brut#/", $_value, $calcul);
-				$calcul = scenarioExpression::setTags($calcul);
-				$result = evaluate($calcul);
+				$result = jeedom::evaluateExpression($calcul);
 				parent::event($result, $_datetime, $_loop);
 			} catch (Exception $e) {
 				$EqLogic = $this->getEqLogic();
