@@ -109,6 +109,7 @@ function ipx800_update() {
 				$FlagBasculeClass = true;
 			}
 		}
+		$eqLogic->save();
 	}
 	if ( $FlagBasculeClass )
 	{

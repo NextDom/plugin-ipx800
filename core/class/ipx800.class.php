@@ -211,32 +211,26 @@ class ipx800 extends eqLogic {
 					$state->save();
 				}
 				$btn_on = $this->getCmd(null, 'btn_on');
-				if ( ! is_object($btn_on) ) {
-					$btn_on = new ipx800Cmd();
-					$btn_on->setName('On');
-					$btn_on->setEqLogic_id($this->getId());
-					$btn_on->setType('action');
-					$btn_on->setSubType('other');
-					$btn_on->setLogicalId('btn_on');
-					$btn_on->setEventOnly(1);
-					$btn_on->setIsVisible(0);
-					$btn_on->setDisplay('generic_type','LIGHT_ON');
-					$btn_on->save();
+				if ( is_object($btn_on) ) {
+					$btn_on->remove();
 				}
 				$btn_off = $this->getCmd(null, 'btn_off');
-				if ( ! is_object($btn_off) ) {
-					$btn_off = new ipx800Cmd();
-					$btn_off->setName('Off');
-					$btn_off->setEqLogic_id($this->getId());
-					$btn_off->setType('action');
-					$btn_off->setSubType('other');
-					$btn_off->setLogicalId('btn_off');
-					$btn_off->setEventOnly(1);
-					$btn_off->setIsVisible(0);
-					$btn_off->setDisplay('generic_type','LIGHT_OFF');
-					$btn_off->save();
+				if ( is_object($btn_off) ) {
+					$btn_off->remove();
 				}
 				break;
+				$commute = $this->getCmd(null, 'commute');
+				if ( ! is_object($commute) ) {
+					$commute = new ipx800Cmd();
+					$commute->setName('Commute');
+					$commute->setEqLogic_id($this->getId());
+					$commute->setType('action');
+					$commute->setSubType('other');
+					$commute->setLogicalId('commute');
+					$commute->setEventOnly(1);
+					$commute->setDisplay('generic_type','LIGHT_TOGGLE');
+					$commute->save();
+				}
 			case "relai":
 				$state = $this->getCmd(null, 'state');
 				if ( ! is_object($state) ) {
@@ -399,45 +393,32 @@ class ipx800 extends eqLogic {
 					$state->save();
 				}			
 				$btn_on = $this->getCmd(null, 'btn_on');
-				if ( ! is_object($btn_on) ) {
-					$btn_on = new ipx800Cmd();
-					$btn_on->setName('On');
-					$btn_on->setEqLogic_id($this->getId());
-					$btn_on->setType('action');
-					$btn_on->setSubType('other');
-					$btn_on->setLogicalId('btn_on');
-					$btn_on->setEventOnly(1);
-					$btn_on->setIsVisible(0);
-					$btn_on->setDisplay('generic_type','LIGHT_ON');
-					$btn_on->save();
-				}
-				else
-				{
-					if ( $btn_on->getDisplay('generic_type') == "" )
-					{
-						$btn_on->setDisplay('generic_type','LIGHT_ON');
-						$btn_on->save();
-					}			
+				if ( is_object($btn_on) ) {
+					$btn_on->remove();
 				}
 				$btn_off = $this->getCmd(null, 'btn_off');
-				if ( ! is_object($btn_off) ) {
-					$btn_off = new ipx800Cmd();
-					$btn_off->setName('Off');
-					$btn_off->setEqLogic_id($this->getId());
-					$btn_off->setType('action');
-					$btn_off->setSubType('other');
-					$btn_off->setLogicalId('btn_off');
-					$btn_off->setEventOnly(1);
-					$btn_off->setIsVisible(0);
-					$btn_off->save();
+				if ( is_object($btn_off) ) {
+					$btn_off->remove();
+				}
+				$commute = $this->getCmd(null, 'commute');
+				if ( ! is_object($commute) ) {
+					$commute = new ipx800Cmd();
+					$commute->setName('Commute');
+					$commute->setEqLogic_id($this->getId());
+					$commute->setType('action');
+					$commute->setSubType('other');
+					$commute->setLogicalId('commute');
+					$commute->setEventOnly(1);
+					$commute->setDisplay('generic_type','LIGHT_TOGGLE');
+					$commute->save();
 				}
 				else
 				{
-					if ( $btn_off->getDisplay('generic_type') == "" )
+					if ( $commute->getDisplay('generic_type') == "" )
 					{
-						$btn_off->setDisplay('generic_type','LIGHT_OFF');
-						$btn_off->save();
-					}			
+						$commute->setDisplay('generic_type','LIGHT_TOGGLE');
+						$commute->save();
+					}
 				}
 				break;
 			case "relai":
@@ -1306,10 +1287,8 @@ class ipx800Cmd extends cmd
 				return false;
 				break;
 			case "bouton":
-				if ( $this->getLogicalId() == 'btn_on' )
-					$url .= 'leds.cgi?set='.$gceid;
-				else if ( $this->getLogicalId() == 'btn_off' )
-					$url .= 'leds.cgi?clear='.$gceid;
+				if ( $this->getLogicalId() == 'commute' )
+					$url .= 'leds.cgi?led='.($gceid+100);
 				else
 					return false;
 					
@@ -1540,6 +1519,10 @@ class ipx800Cmd extends cmd
 		}
 		// Ici on traite les autres commandes (hors "Mode")
 		return $info_device;
+	}
+
+	public function dontRemoveCmd() {
+		return true;
 	}
 }
 ?>

@@ -281,7 +281,7 @@ $eqLogics = eqLogic::byTypeAndSearhConfiguration('ipx800', '"type":"carte"');
 		</div>
     </div>
 
-    <div class="col-lg-9 eqLogic ipx800" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
+    <div class="col-lg-9 eqLogic ipx800" style="border-left: solid 1px #EEE; padding-left: 25px;">
         <form class="form-horizontal">
             <fieldset>
                 <legend>

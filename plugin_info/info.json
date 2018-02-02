@@ -1,9 +1,12 @@
 {
 	"id" : "ipx800",
 	"name" : "ipx800 V3",
+    "description" : "Plugin pour gerer les cartes ipx800 GCE. Prend en charge les extension x800. Permet de connaitre l'état des relais, entrées, .. de l'IPX et de modifier l'état des relais.",
 	"licence" : "AGPL",
 	"author" : "Thomas Guenneguez",
 	"require" : "3.0",
 	"category" : "automation protocol",
-	"installation" : "Nécessite firmware 3.05.42 minimum"
+	"installation" : "Nécessite firmware 3.05.42 minimum",
+    "changelog" : "https://jeedom.github.io/documentation/third_plugin/ipx800/#language#/index.html#_changelog",
+    "documentation" : "https://jeedom.github.io/documentation/third_plugin/ipx800/#language#/index.html"
 }
