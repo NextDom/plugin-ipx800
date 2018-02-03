@@ -3,7 +3,7 @@ WARNING: Detail complet des mises à jour sur https://github.com/guenneguezt/plu
 Liste des évolutions majeures de la version courante :
 
 - Regroupement des équipements dans une seule classe.
-- Correction de la création d'équipement
+- Correction de la création d'équipement.
 
 Anciennes évolutions :
 
