@@ -13,7 +13,7 @@
         "Valeur": "Valor",
         "Unité": "Unidad",
         "Paramètres": "Parámetros",
-        "Sauvegarder": "Salvar"
+        "Sauvegarder": "Guardar"
     },
     "plugins\/ipx800\/desktop\/php\/ipx800_bouton.php": {
         "Général": "General",
@@ -29,7 +29,7 @@
         "Valeur": "Valor",
         "Unité": "Unidad",
         "Paramètres": "Parámetros",
-        "Sauvegarder": "Salvar"
+        "Sauvegarder": "Guardar"
     },
     "plugins\/ipx800\/desktop\/php\/ipx800_relai.php": {
         "Général": "General",
@@ -45,7 +45,7 @@
         "Valeur": "Valor",
         "Unité": "Unidad",
         "Paramètres": "Parámetros",
-        "Sauvegarder": "Salvar"
+        "Sauvegarder": "Guardar"
     },
     "plugins\/ipx800\/desktop\/php\/ipx800_compteur.php": {
         "Général": "General",
@@ -62,7 +62,7 @@
         "Valeur": "Valor",
         "Unité": "Unidad",
         "Paramètres": "Parámetros",
-        "Sauvegarder": "Salvar"
+        "Sauvegarder": "Guardar"
     },
     "plugins\/ipx800\/desktop\/php\/ipx800.php": {
         "Ajouter une IPX800": "Añadir un IPX800",
@@ -99,15 +99,15 @@
         "Unité": "Unidad",
         "Paramètres": "Parámetros",
         "Supprimer": "Borrar",
-        "Sauvegarder": "Salvar",
-        "Sauvegarde effectuée avec succès": "Salvado realizado con éxito",
+        "Sauvegarder": "Guardar",
+        "Sauvegarde effectuée avec succès": "Guardado realizado con éxito",
         "Utilisez sur l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>": "Utilice el icono siguiente para ver los detalles del dispositivo <i class=\\\"fa fa-sitemap\\\"></i>",
-        "Extensions X200ph": "Extensions X200ph",
-        "Carte X200ph 1": "Carte X200ph 1",
-        "Carte X200ph 2": "Carte X200ph 2",
-        "Gestion": "Gestion",
-        "Configuration": "Configuration",
-        "Utilisez l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>": "Utilisez l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>"
+        "Extensions X200ph": "Extensiones X200ph",
+        "Carte X200ph 1": "placa X200ph1",
+        "Carte X200ph 2": "Placa X200ph 2",
+        "Gestion": "Gestión",
+        "Configuration": "Configuración",
+        "Utilisez l\\'icône suivant pour voir le détail de l\\'élément <i class=\"fa fa-sitemap\"><\/i>": "Utilice el siguiente icono para ver el detalle del elemento 11 <i class=\"fa fa-sitemap\"></i>"
     },
     "plugins\/ipx800\/desktop\/modal\/ipx800.configpush.php": {
         "Information générale": "Información general",
@@ -124,7 +124,7 @@
         "Appliquer": "Aplicar",
         "Tout décocher": "Deseleccionar todas",
         "Tout cocher": "Seleccionar todas",
-        "Entrée analogique": "Entrée analogique"
+        "Entrée analogique": "Entrada analógica"
     },
     "plugins\/ipx800\/desktop\/js\/ipx800.js": {
         "Nom": "Nombre",
@@ -145,6 +145,6 @@
         "Application de la configuration Push correcte": "Aplicación de la configuración Push correcta. "
     },
     "plugins\/ipx800\/plugin_info\/info.json": {
-        "Nécessite firmware 3.05.42 minimum": "Nécessite firmware 3.05.42 minimum"
+        "Nécessite firmware 3.05.42 minimum": "Necesita minimo firmware 3.05.42"
     }
 }
